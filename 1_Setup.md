@@ -1,4 +1,4 @@
-# InfluxDB - Aufgabe 1 : Setup
+# InfluxDB - Aufgabenfeld 1 : Setup
 
 ## Installation von InfluxDB unter Ubunut 24.04
 
