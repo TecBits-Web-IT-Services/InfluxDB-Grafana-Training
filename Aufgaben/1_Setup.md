@@ -2,16 +2,16 @@
 
 ## Installation von InfluxDB unter Ubunut 24.04
 
-### 1. Installation der Abhängikeiten, Tools und von InfluxDB über die Shell
+### 1. Installation der Abhängikeiten, Tools und InfluxDB über die Linux Shell
     
 ```bash
 # zum root-Benutzer wechseln
 sudo su
 
-# installation der Tools und abhängigkeiten für einfacheres arbeiten
-apt-get update && apt-get install curl git 
+# Installation der Tools und abhängigkeiten
+apt-get update && apt-get install curl 
 
-#download des InfluxDB Repository Schlüssels
+# download des InfluxDB Repository Schlüssels
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key 
 
 #validierung des Schlüssels und hinzufügen zum Ubuntu Keyring
@@ -71,16 +71,14 @@ influx server-config
 >- Normalerweise wird die Config auf dem Rechner den Clients und nicht auf dem Server hinterlegt und der Port sollte durch eine Firewall abgesichert werden
 
 
-### 4. Abschlussaufgabe 
-
-Ändern Sie mithilfe der Liste der [möglichen Konfigurationsparameter](https://docs.influxdata.com/influxdb/v2/reference/config-options/#configuration-options) den Port des Webinterfaces und der HTTP Api auf den PORT 8087 und validieren Sie die Änderung über die Ausgabe der Server Konfiguration
+### 4. Ändern Sie mithilfe der Liste der [möglichen Konfigurationsparameter](https://docs.influxdata.com/influxdb/v2/reference/config-options/#configuration-options) den Port des Webinterfaces und der HTTP Api auf den PORT 8087 und validieren Sie die Änderung über die Ausgabe der Server Konfiguration
 
 
 >Hinweise:
 >
->- Die Konfigurationsdatei des InfluxDB Service finden Sie unter folgendem Pfad:  
+>- Die Konfigurationsdatei des InfluxDB Services finden Sie unter folgendem Pfad:  
 >    **/etc/influxdb/config.toml**
->- Nach der Anpassung mit der Service neugestartet werden
->- Die Benutzerkonfiguration muss Angepasst werden, da sich die Host-Url durch die Portänderung verändert   
+>- Nach der Anpassung muss der Service neugestartet werden
+>- Die Benutzerkonfiguration muss angepasst werden, da sich die Host-Url durch die Portänderung verändert   
 
 

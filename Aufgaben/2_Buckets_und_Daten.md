@@ -12,7 +12,7 @@
 > - Sie können entweder den Parameter ``--org-id`` mit der Organisations ID Verwenden ODER den Organisations Namen mit ``--org``
 > - Die Werte für beide Parameter finden Sie im Webinterface 
 
-### 4. Importieren Sie die Testdaten "air-sensor-data-annotated.csv" in der testdata-cli Bucket
+### 4. Importieren Sie die Testdaten "air-sensor-data-annotated.csv" in das testdata-cli Bucket
 > Hinweis
 >
 > - Verwenden Sie den Befehl influx ``write``
@@ -26,18 +26,20 @@
 > - Bei Bedarf verwenden Sie die Hilfe (``help``) 
 > - verwenden Sie den ``use BUCKET/DATABASE`` Befehl um das CLI Bucket zu verwenden
 
-### 5. Verwenden Sie die V1 CLI um alle Werte aus der airSensors Messreihe anzeigen zu lassen und verfeinern Sie anschließend die Ausgabe um nur die Daten für den Sensor mit der ID TLM0102 anzuzeigen. Optimieren Sie dann die Abfrage um nur Temperatur Werte anzuzeigen. Wie ist der Durchschnittswert der Temperatur?
-> Hinweis
->
-> - Verwenden Sie den Befehl ``influx v1 shell``
-> - Bei Bedarf verwenden Sie die Hilfe (``help``) 
-> - verwenden Sie den ``use BUCKET/DATABASE`` Befehl um das CLI Bucket zu verwenden
-> - ' unterscheiden sich von " :-)
-
 ### 6. Verwenden Sie den **Data-Explorer** im Webinterface um sich mit diesem Vertraut zu machen und die Importierten Sensor Werte anzuzeigen
 > Hinweis
 >
 >- Eventuell müssen Sie den Zeitraum der Anzeige Vergößern um die Daten zu sehen (Button Links neben dem Button "Script Editor")
 >- Spielen sie mit Verschiedenen Diagramm Typen, verschiedenen Window-Perioden, und Agregierungs Methoden
+
+### 7. Verwenden Sie die V1 CLI mit InfluxQL um sich alle Werte aus der airSensors Messreihe anzeigen zu lassen und verfeinern Sie anschließend die Ausgabe um nur die Daten für den Sensor mit der ID TLM0102 anzuzeigen. Optimieren Sie dann die Abfrage um nur Temperatur Werte anzuzeigen. Wie ist der Durchschnittswert der Temperatur?
+> Hinweis
+>
+> - Verwenden Sie den Befehl ``influx v1 shell`` und InfluxQL
+> - Bei Bedarf verwenden Sie die Hilfe (``help``) 
+> - verwenden Sie den ``use BUCKET/DATABASE`` Befehl um das CLI Bucket zu verwenden
+> - ' unterscheiden sich von " :-)
+
+
 
 

@@ -1,4 +1,4 @@
-# InfluxDB - Aufgabenfeld 4 : Einrichtung von Telegraf
+# InfluxDB - Aufgabenfeld 4 : Einrichtung und Verwendung von Telegraf
 
 ### 1. Installation von Telegraf über die Linux Shell
     
@@ -13,7 +13,7 @@ apt-get install telegraf apache2
 ### 2. Erstellen Sie mit der CLI oder dem Webinterface ein neues Bucket "computer-monitoring".
 
 ### 3. Erstellen Sie über das Webinterface eine neue Telegraf Konfiguration mit dem gerade erstellten Bucket und der Vorauswahl für **CPU** und dem Namen Monitoring
- - Belassen Sie die Konfiguration so wie Sie ist
+ - Belassen Sie die Konfiguration so wie sie ist
  - Kopieren Sie den angezeigten Token Befehl in eine neue Textdatei
  - Führen Sie den Befehl in der Linux Shell aus
  - Kopieren Sie den 'Start Telegraf' Befehl in die erstelle Textdatei und führen Sie ihn in der Linux Shell aus um Telegraf zu starten
