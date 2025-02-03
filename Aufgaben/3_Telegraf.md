@@ -33,15 +33,20 @@ apt-get install telegraf apache2
 >Hinweis:
 > - wir verwenden das Input Plugin "Mem" ohne weitere Konfiguration, weshalb diese Zeile ausreichend ist.
 
-### 5. Erstellen Sie mit der CLI oder dem Webinterface ein neues Bucket "apache-logs".
+### 5. Aktivieren Sie den Debug Modus des Telegraf Services
 
-### 6. Erstellen Sie im Bereich Load Data - API Tokens einen neuen API Token 
+>Hinweis:
+> - Der Parameter sollte bereits in der automatisch erstellten Telegraf Konfiguration aus Schritt 2 zu finden sein.
+
+### 6. Erstellen Sie mit der CLI oder dem Webinterface ein neues Bucket "apache-logs".
+
+### 7. Erstellen Sie im Bereich Load Data - API Tokens einen neuen API Token 
 
 - Der Name sollte TELEGRAF_MULTI_BUCKET_ACCESS lauten und erlauben die den Schreibzugriff auf die beiden neuen Buckets und den Lese Zugriff auf die neue Telegraf Konfiguration
 - Speichern Sie den angezeigten Token in die Textdatei
 
 
-### 6. Editieren Sie über die Weboberfläche die erstellte Telegraf Konfiguration und erweitern Sie sie um einen Bereich für das Apache Acces Log Monitoring unter verwendung der folgenden Konfiguration
+### 8. Editieren Sie über die Weboberfläche die erstellte Telegraf Konfiguration und erweitern Sie sie um einen Bereich für das Apache Acces Log Monitoring unter verwendung der folgenden Konfiguration
 ```
 [[inputs.tail]]
   files = ["/var/log/apache2/access.log"]
@@ -57,7 +62,7 @@ apt-get install telegraf apache2
 
 ```
 
-### 7. Ergänzen Sie die Konfiguration der Outputkomponente  in der Telegrafkonfiguration
+### 9. Ergänzen Sie die Konfiguration der Outputkomponente  in der Telegrafkonfiguration
 
 - Fügen sie folgende Zeile im Bereich ``[[outputs.influxdb_v2]]`` hinzu
 
@@ -65,13 +70,13 @@ apt-get install telegraf apache2
 bucket_tag = "targetBucket"
 ```
 
-### 8. Hinterlegen Sie den neuen Access Token und starten Sie Telegraf erneut mit dem Befehl aus Aufgabe 3
+### 10. Hinterlegen Sie den neuen Access Token und starten Sie Telegraf erneut mit dem Befehl aus Aufgabe 3
 ```bash
 
 export INFLUX_TOKEN=NEW_ACCESS_TOKEN
 ```
 
-### 9. Rufen Sie in der VM über einen Browser ihrer Wahl mehrfach die URL der Apache Testseite [http://localhost](http://localhost) auf um Testdaten zu erzeugen und verifizieren Sie im Anschluss über den Data Explorer das sich Daten im Bucket "apache-logs" befinden.
+### 11. Rufen Sie in der VM über einen Browser ihrer Wahl mehrfach die URL der Apache Testseite [http://localhost](http://localhost) auf um Testdaten zu erzeugen und verifizieren Sie im Anschluss über den Data Explorer das sich Daten im Bucket "apache-logs" befinden.
 - Rufen Sie gerne auch mehrfach [http://localhost/zonk](http://localhost/zonk) auf um Einträge für nicht erfolgreiche 404 Antworten zu erzeugen
 > Hinweis
 > - Sie müssen die Aggregierungsfunktion deaktiveren und die Rohwert Ansicht Verwenden damit die Daten angezeigt werden.
