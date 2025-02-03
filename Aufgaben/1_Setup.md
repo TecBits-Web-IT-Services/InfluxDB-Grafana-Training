@@ -3,7 +3,7 @@
 ## Installation von InfluxDB unter Ubunut 24.04
 
 ### 1. Installation der Abhängikeiten, Tools und InfluxDB über die Linux Shell
-    
+
 ```bash
 # zum root-Benutzer wechseln
 sudo su
@@ -15,7 +15,7 @@ apt-get update && apt-get install curl
 curl --silent --location -O https://repos.influxdata.com/influxdata-archive.key 
 
 #validierung des Schlüssels und hinzufügen zum Ubuntu Keyring
-echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key" \
+echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515 influxdata-archive.key" \
 | sha256sum --check - && cat influxdata-archive.key \
 | gpg --dearmor \
 | tee /etc/apt/trusted.gpg.d/influxdata-archive.gpg > /dev/null \
