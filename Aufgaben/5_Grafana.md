@@ -31,6 +31,8 @@ systemctl start grafana-server
 - Lese Berechtigung für das **computer-monitoring** Bucket
 - Speichern sie den Token in eine Textdatei
 
+## 5a. Option 1: InfluxDB mit FLUX 
+
 ### 3. Einrichtung von InfluxDB als Datenquelle für Grafana
 - Klicken Sie im Grafana Dashboard oben links auf das Grafana Symbol und dem erscheinenden Menü auf Connections
 - Wählen Sie in der Liste InfluxDB aus und dann oben rechts "Add new data Source"
@@ -69,3 +71,22 @@ from(bucket: "apache-logs")
   |> filter(fn: (r) => r["path"] == "/var/log/apache2/access.log")
   |> filter(fn: (r) => r["resp_code"] == "200" or r["resp_code"] == "404")
 ```
+
+## 5b. Option 2: InfluxDB mit InfluxQL 
+### 3. Einrichtung von InfluxDB als Datenquelle für Grafana
+- Klicken Sie im Grafana Dashboard oben links auf das Grafana Symbol und dem erscheinenden Menü auf Connections
+- Wählen Sie in der Liste InfluxDB aus und dann oben rechts "Add new data Source"
+- Setzten Sie im erscheinenden Dialog folgende Daten:
+    - Name: InfluxDB Local
+    - Query Language: InfluxQL
+    - URL: http://localhost:8087
+    - Custom HTTP Headers:
+        Header: Authorization
+        Value: Token TOKEN_AUS_AUFGABE_2
+    - Database: computer-monitoring
+    - HTTP Method: GET
+- Klicken Sie "Save & Test"
+
+### 4. Erstellen Sie in Grafana ein neues Dashboard und richten Sie ein Diagramm Widget für die CPU und Memory Auslastung ein.
+
+### 5. Erstellen Sie in ihrem Dashbard eine neues Widget vom Typ Tabelle für die Ausgabe der Log Informationen des Apache Webservers
