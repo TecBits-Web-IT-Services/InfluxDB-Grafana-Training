@@ -29,6 +29,7 @@ systemctl start grafana-server
 ### 2. Erstellen Sie in der InfluxDB Oberfläche einen neuen API Token "GRAFANA" mit folgenden berechtigungen:
 - Lese Berechtigung für das **apache-logs** Bucket
 - Lese Berechtigung für das **computer-monitoring** Bucket
+- Lese Berechtigung für eines der beiden Testdata Buckets
 - Speichern sie den Token in eine Textdatei
 
 ## 5a. Option 1: InfluxDB mit FLUX 
