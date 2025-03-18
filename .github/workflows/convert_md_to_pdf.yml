@@ -26,7 +26,7 @@ jobs:
       run: |
         mkdir -p PDF
         for file in Aufgaben/*.md; do
-          md-to-pdf "$file" --output "PDF/$(basename "${file%.md}.pdf")"
+          cat "$file" | md-to-pdf > "PDF/$(basename "${file%.md}.pdf")"
         done
 
     - name: Commit and push PDFs
