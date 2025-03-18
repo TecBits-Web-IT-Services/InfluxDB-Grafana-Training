@@ -21,15 +21,14 @@ jobs:
           #image_import: ./images
           # Default is true, can set to false to only get PDF files
           build_html: false
-      - uses: actions/upload-artifact@v4
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.5
         with:
-          name: Aufgaben
-          path: PDF
-
-     # - name: Commit and push PDFs
-      #  run: |
-      #    git config --global user.name 'github-actions[bot]'
-       #   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      #    git add PDF/*.pdf
-      #    git commit -m 'Convert Markdown to PDF'
-      #    git push
+          type: 'zip'
+          filename: 'release.zip'
+          exclusions: '*.git* /*node_modules/* .editorconfig /*Aufgaben/*'
+      - name: Upload Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: "release.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
