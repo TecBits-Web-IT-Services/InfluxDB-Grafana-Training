@@ -1,9 +1,9 @@
-name: Convert Markdown to PDF
+name: Convert Markdown to PDF an create Release
 
 on:
   push:
-    paths:
-      - 'Aufgaben/*.md'
+    tags:
+      - '*'
   workflow_dispatch:
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
         with:
           type: 'zip'
           filename: 'release.zip'
-          exclusions: '*.git* /*node_modules/* .editorconfig /*Aufgaben/*'
+          exclusions: '*.git* /*node_modules/* .editorconfig /*Aufgaben/* /*theme/* LICENSE README.md'
       - name: Upload Release
         uses: ncipollo/release-action@v1.12.0
         with:
