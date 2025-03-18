@@ -90,5 +90,4 @@ from(bucket: "apache-logs")
 
 ### 4. Erstellen Sie in Grafana ein neues Dashboard und richten Sie ein Diagramm Widget für die CPU und Memory Auslastung ein.
 
-
 ### 5. Erstellen Sie in ihrem Dashbard eine neues Widget vom Typ Tabelle für die Ausgabe der Log Informationen des Apache Webservers
