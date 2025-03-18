@@ -7,32 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
-  convert_md_to_pdf:
+  converttopdf:
+    name: Build PDF
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_dir: Aufgaben
+          output_dir: PDF
+          #images_dir: docs/images
+          # for example <img src="./images/file-name.png">
+          #image_import: ./images
+          # Default is true, can set to false to only get PDF files
+          build_html: false
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Aufgaben
+          path: PDF
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
-
-    - name: Install md-to-pdf via NPM
-      run: npm install -g md-to-pdf
-
-    - name: Convert Markdown to PDF
-      run: |
-        mkdir -p PDF
-        for file in Aufgaben/*.md; do
-          cat "$file" | md-to-pdf > "PDF/$(basename "${file%.md}.pdf")"
-        done
-
-    - name: Commit and push PDFs
-      run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add PDF/*.pdf
-        git commit -m 'Convert Markdown to PDF'
-        git push
+     # - name: Commit and push PDFs
+      #  run: |
+      #    git config --global user.name 'github-actions[bot]'
+       #   git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+      #    git add PDF/*.pdf
+      #    git commit -m 'Convert Markdown to PDF'
+      #    git push
