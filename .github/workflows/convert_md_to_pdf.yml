@@ -5,7 +5,7 @@ on:
     paths:
       - 'Aufgaben/*.md'
   workflow_dispatch:
-    
+
 jobs:
   convert_md_to_pdf:
     runs-on: ubuntu-latest
@@ -19,14 +19,14 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Install markdown-to-pdf
-      run: npm install -g markdown-to-pdf
+    - name: Install md-to-pdf via NPM
+      run: npm install -g md-to-pdf
 
     - name: Convert Markdown to PDF
       run: |
         mkdir -p PDF
         for file in Aufgaben/*.md; do
-          markdown-to-pdf "$file" -o "PDF/$(basename "${file%.md}.pdf")"
+          md-to-pdf "$file" --output "PDF/$(basename "${file%.md}.pdf")"
         done
 
     - name: Commit and push PDFs
