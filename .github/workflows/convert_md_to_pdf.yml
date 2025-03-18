@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - 'Aufgaben/*.md'
-
+  workflow_dispatch:
+    
 jobs:
   convert_md_to_pdf:
     runs-on: ubuntu-latest
