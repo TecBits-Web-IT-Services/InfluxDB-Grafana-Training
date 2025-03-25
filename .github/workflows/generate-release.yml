@@ -59,4 +59,5 @@ jobs:
         with:
           artifacts: "release.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
+          makeLatest: true
           body: Dieser Release enthält den aktuellsten Stand der Testdaten und Übungsaufgaben.
