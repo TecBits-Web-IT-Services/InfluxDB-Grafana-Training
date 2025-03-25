@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - '*'
-  workflow_dispatch:
-
 jobs:
   createRelease:
     name: Generate test data and convert md files
@@ -51,3 +49,15 @@ jobs:
         with:
           name: release.zip
           path: ${{ github.workspace }}/release.zip
+      - uses: Nats-ji/delete-old-releases@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          keep-count: 1
+          keep-old-minor-releases: true
+          keep-old-minor-releases-count: 1
+      - name: create release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: "release.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: Dieser Release enthält den aktuellsten Stand der Testdaten und Übungsaufgaben.
