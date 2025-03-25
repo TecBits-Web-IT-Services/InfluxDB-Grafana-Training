@@ -48,7 +48,7 @@ jobs:
         with:
           files: PDF/ Generator/output/
           dest: release.zip
-      - uses: actions/upload-artifact@v1.1
+      - uses: actions/upload-artifact@v4
         with:
-          name: my-artifact
+          name: release.zip artifact
           path: ${{ github.workspace }}/release.zip
