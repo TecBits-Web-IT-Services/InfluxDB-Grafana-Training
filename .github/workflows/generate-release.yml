@@ -53,8 +53,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           keep-count: 1
-          keep-old-minor-releases: true
-          keep-old-minor-releases-count: 1
+          keep-old-minor-releases: false
       - name: create release
         uses: ncipollo/release-action@v1.12.0
         with:
