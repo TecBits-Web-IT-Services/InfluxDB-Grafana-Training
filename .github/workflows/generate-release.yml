@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: mkdir Release/Aufgaben -p && mkdir Release/Testdaten
+      - run: mkdir ${{ github.workspace }}/Release/Aufgaben -p && mkdir ${{ github.workspace }}/Release/Testdaten
       - name: Install Dependencies
         run: cd ${{ github.workspace }}/Generator && npm install
       - name: Generate base data
