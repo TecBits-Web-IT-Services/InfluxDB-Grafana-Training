@@ -17,6 +17,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: mkdir Release/Aufgaben -p && mkdir Release/Testdaten
       - name: Install Dependencies
         run: cd ${{ github.workspace }}/Generator && npm install
       - name: Generate base data
@@ -34,21 +35,19 @@ jobs:
           /usr/local/bin/influx write -f $GITHUB_WORKSPACE/Generator/output/air-sensor-data.lp -b dummy
           /usr/local/bin/influx query "from(bucket: \"dummy\") |> range(start: -1y) |> drop(columns: [\"_start\",\"_stop\"])" --raw > $GITHUB_WORKSPACE/Generator/output/air-sensor-data-annotated.csv
           /usr/local/bin/influx bucket delete -n dummy
+      - run:  cp ${{ github.workspace }}/Generator/output/* ${{ github.workspace }}/Release/Testdaten
       - name: generate Documents
         uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: Aufgaben
-          output_dir: PDF
-          #images_dir: docs/images
-          # for example <img src="./images/file-name.png">
-          #image_import: ./images
-          # Default is true, can set to false to only get PDF files
-          #build_html: false
+          output_dir: Release/Aufgaben
+          build_pdf: false
       - uses: vimtor/action-zip@v1.2
         with:
-          files: PDF/ Generator/output/
+          files: Release/
+          recursive: 'true'
           dest: release.zip
       - uses: actions/upload-artifact@v4
         with:
-          name: release.zip artifact
+          name: release.zip
           path: ${{ github.workspace }}/release.zip
