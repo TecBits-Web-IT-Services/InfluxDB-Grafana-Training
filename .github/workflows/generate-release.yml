@@ -34,3 +34,21 @@ jobs:
           /usr/local/bin/influx write -f $GITHUB_WORKSPACE/Generator/output/air-sensor-data.lp -b dummy
           /usr/local/bin/influx query "from(bucket: \"dummy\") |> range(start: -1y) |> drop(columns: [\"_start\",\"_stop\"])" --raw > $GITHUB_WORKSPACE/Generator/output/air-sensor-data-annotated.csv
           /usr/local/bin/influx bucket delete -n dummy
+      - name: generate Documents
+        uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_dir: Aufgaben
+          output_dir: PDF
+          #images_dir: docs/images
+          # for example <img src="./images/file-name.png">
+          #image_import: ./images
+          # Default is true, can set to false to only get PDF files
+          #build_html: false
+      - uses: vimtor/action-zip@v1.2
+        with:
+          files: PDF/ Generator/output/
+          dest: release.zip
+      - uses: actions/upload-artifact@v1.1
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}/release.zip
