@@ -1,0 +1,27 @@
+name: Convert Markdown to PDF an create Release
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  converttopdf:
+    name: Build PDF
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: List files in the repository
+        run: |
+         ls ${{ github.workspace }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: cd Generator && npm install
+      - run: npm run generate-lb

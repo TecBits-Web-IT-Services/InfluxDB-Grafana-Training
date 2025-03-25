@@ -1,0 +1,14 @@
+{
+  "name": "example-data-generator",
+  "version": "1.0.0",
+  "description": "Simple Tool to generate some example data for our influxdb class",
+  "main": "index.js",
+  "scripts": {
+    "generate-lb": "node index.js > ./output/air-sensor-data.lp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}
