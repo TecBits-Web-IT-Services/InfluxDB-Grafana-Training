@@ -1,4 +1,4 @@
-name: Convert Markdown to PDF an create Release
+name: Create release for next class
 
 on:
   push:
@@ -7,21 +7,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  converttopdf:
-    name: Build PDF
+  createRelease:
+    name: Generate test data and convert md files
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: List files in the repository
-        run: |
-         ls ${{ github.workspace }}
-      - uses: actions/setup-node@v4
+      - name: Install Dependencies
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: cd Generator && npm install
-      - run: npm run generate-lb
+        run: cd ${{ github.workspace }}/Generator && npm install
+      - name: Generate base data
+        run: cd ${{ github.workspace }}/Generator && npm run generate-lb
+      - name: InfluxDB Action
+        uses: influxdata/influxdb-action@v3
+        with:
+          influxdb_version: 2.0.7
+          influxdb_org: influxdata
+          influxdb_user: ci_user
+          influxdb_password: password
+          influxdb_bucket: dummy
+      - name: Generate Air Sensor CSV
+        run: |
+          /usr/local/bin/influx write -f $GITHUB_WORKSPACE/Generator/output/air-sensor-data.lp -b dummy
+          /usr/local/bin/influx query "from(bucket: \"dummy\") |> range(start: -1y) |> drop(columns: [\"_start\",\"_stop\"])" --raw > $GITHUB_WORKSPACE/Generator/output/air-sensor-data-annotated.csv
+          /usr/local/bin/influx bucket delete -n dummy
