@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
 jobs:
   createRelease:
     name: Generate test data and convert md files
