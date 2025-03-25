@@ -13,7 +13,7 @@ Unsere Trainingsmaterialien wurden speziell entwickelt, um Teilnehmerinnen und T
 - **Testdaten**: In der ZIP-Datei des aktuellen Releases enthalten, ideal für Übungen mit Echtzeit- und historischen Daten.
 - **Übungsaufgaben**: Interaktive Aufgaben, die das Verständnis und die Anwendung der Tools fördern.
 
-**Hinweis**: Die relevanten Dateien finden Sie in der [aktuellen Release-Version](./releases).
+**Hinweis**: Die relevanten Dateien finden Sie in der [aktuellen Release-Version](https://github.com/TecBits-Web-IT-Services/InfluxDB-Grafana-Training/releases).
 
 ---
 
