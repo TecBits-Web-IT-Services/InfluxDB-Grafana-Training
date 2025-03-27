@@ -24,14 +24,9 @@ apt-get install telegraf apache2
 > - Sie können die Konfiguration im Bereich **Load Data** Telegraf erstellen und dort auch später editieren
 > - Für die Übung starten wir Telegraf nicht als Dienst sondern interactive in der Shell, per STRG+C kann der Prozess beendet und die Datensammlugn gestoppt werden
 
-### 4. Editieren Sie über die Weboberfläche die erstellte Telegraf Konfiguration und erweitern Sie sie um einen Bereich für das Memory Monitoring unter verwendung der folgenden Konfiguration
-```
-...
-[[inputs.mem]]
-```
-- Starten Sie im Anschluss wieder den Telegraf Prozess und prüfen Sie ob die Daten für die Speicherauslastung nun ebenfalls im Data Explorer zu finden sind.
->Hinweis:
-> - wir verwenden das Input Plugin "Mem" ohne weitere Konfiguration, weshalb diese Zeile ausreichend ist.
+### 4. Editieren Sie über die Weboberfläche die erstellte Telegraf-Konfiguration und ersetzen Sie den Inhalt mit dem Inhalt der Datei "Telegraf_Computer_Monitoring.conf" aus dem Ordner mit dem Beispielkonfigurationen
+
+- Starten Sie im Anschluss wieder den Telegraf Prozess und prüfen Sie, ob nun neben den CPU Metriken weitere Daten im Data Explorer zu finden sind.
 
 ### 5. Aktivieren Sie den Debug Modus des Telegraf Services
 

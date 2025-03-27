@@ -50,7 +50,12 @@ service influxdb restart
 ### 3. Einrichten der influx-Cli auf der Shell und prüfung der Benutzer-Konfiguration
 ```bash
 
-# Erstellung einer Benutzerkonfiguration für den gerade angemeldeten Benutzer - diese wird in einer Datei unter /home oder /root, je nach verwendetem Benutzer, im Ordner .influxdbv2 in der Datei configs hinterlegt und kann dort nach der Erstellung auch editiert werden. Zum Beispiel mit vi, vim, nano oder einem anderen beliebigen Texteditor. Änderungen an der Datei erfordern KEINEN Service neustart.
+# Erstellung einer Benutzerkonfiguration für den gerade angemeldeten Benutzer - 
+# diese wird in einer Datei unter /home oder /root, 
+# je nach verwendetem Benutzer, im Ordner .influxdbv2 in der Datei configs 
+# hinterlegt und kann dort nach der Erstellung auch editiert werden. 
+# Zum Beispiel mit vi, vim, nano oder einem anderen beliebigen Texteditor. 
+# Änderungen an der Datei erfordern KEINEN Service neustart.
 
 influx config create --config-name "NAME_DER_KONFIGURATION" --host-url "http://localhost:8086" --org "ORGANISATIONS_NAME" --token "OPERATOR_TOKEN" --active
 

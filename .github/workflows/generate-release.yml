@@ -35,6 +35,7 @@ jobs:
           /usr/local/bin/influx query "from(bucket: \"dummy\") |> range(start: -1y) |> drop(columns: [\"_start\",\"_stop\"])" --raw > $GITHUB_WORKSPACE/Generator/output/air-sensor-data-annotated.csv
           /usr/local/bin/influx bucket delete -n dummy
       - run:  cp ${{ github.workspace }}/Generator/output/* ${{ github.workspace }}/Release/Testdaten
+      - run:  cp -R ${{ github.workspace }}/Beispielkonfigurationen ${{ github.workspace }}/Release/
       - name: generate Documents
         uses: baileyjm02/markdown-to-pdf@v1
         with:
