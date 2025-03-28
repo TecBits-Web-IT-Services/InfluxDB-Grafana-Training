@@ -1,5 +1,8 @@
 # InfluxDB - Aufgabenfeld 4 : Einrichtung und Verwendung von Telegraf
 
+> Hinweis:
+> - sollten Sie Probleme bei den Telegraf Konfiguration haben, finden Sie eine Komplettlösung im Ordner Beispielkonfigurationen in der Datei "Telegraf_Computer_Monitoring_Apache.conf"
+
 ### 1. Installation von Telegraf über die Linux Shell
     
 ```bash
@@ -22,7 +25,7 @@ apt-get install telegraf apache2
 > Hinweis:
 >
 > - Sie können die Konfiguration im Bereich **Load Data** Telegraf erstellen und dort auch später editieren
-> - Für die Übung starten wir Telegraf nicht als Dienst sondern interactive in der Shell, per STRG+C kann der Prozess beendet und die Datensammlugn gestoppt werden
+> - Für die Übung starten wir Telegraf nicht als Dienst, sondern interaktiv in der Shell, per STRG+C kann der Prozess beendet und die Datensammlugn gestoppt werden
 
 ### 4. Editieren Sie über die Weboberfläche die erstellte Telegraf-Konfiguration und ersetzen Sie den Inhalt mit dem Inhalt der Datei "Telegraf_Computer_Monitoring.conf" aus dem Ordner mit dem Beispielkonfigurationen
 
@@ -37,7 +40,8 @@ apt-get install telegraf apache2
 
 ### 7. Erstellen Sie im Bereich Load Data - API Tokens einen neuen API Token 
 
-- Der Name sollte TELEGRAF_MULTI_BUCKET_ACCESS lauten und erlauben die den Schreibzugriff auf die beiden neuen Buckets und den Lese Zugriff auf die neue Telegraf Konfiguration
+- Der Name sollte TELEGRAF_MULTI_BUCKET_ACCESS lauten
+- erlauben die den Lese/Schreibzugriff auf die Buckets "computer-monitoring" und "apache-logs", sowie den Lesezugriff auf die neue Telegraf Konfiguration
 - Speichern Sie den angezeigten Token in die Textdatei
 
 

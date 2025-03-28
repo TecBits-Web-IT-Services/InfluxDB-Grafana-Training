@@ -20,7 +20,7 @@ apt-get update && apt install grafana
 # Starten von Grafana
 systemctl start grafana-server
 ```
-- Öffnen Sie im Anschluss im Browser der VM [http://localhost:3000](http://localhost:3000) und pürfen Sie ob der Grafana Login Bildschirm erscheint
+- Öffnen Sie im Anschluss im Browser der VM [http://localhost:3000](http://localhost:3000) und prüfen Sie ob der Grafana Login Bildschirm erscheint
 - Die Standart Login Daten lauten wie folgt:
     - Benutzername: **admin**
     - Passwort: **admin**
@@ -29,7 +29,8 @@ systemctl start grafana-server
 ### 2. Erstellen Sie in der InfluxDB Oberfläche einen neuen API Token "GRAFANA" mit folgenden berechtigungen:
 - Lese Berechtigung für das **apache-logs** Bucket
 - Lese Berechtigung für das **computer-monitoring** Bucket
-- Lese Berechtigung für eines der beiden Testdata Buckets
+- Lese Berechtigungen für das **testdata-web** Bucket
+
 - Speichern sie den Token in eine Textdatei
 
 ## 5a. Option 1: InfluxDB mit FLUX 
@@ -45,7 +46,7 @@ systemctl start grafana-server
     - Token: TOKEN AUS TEXTDATEI in SCHRITT 3.
     - Default Bucket: computer-monitoring
 - Klicken Sie "Save & Test"
-    - Es sollte eine Meldung mit ``datasource is working. 2 buckets found`` erscheinen
+    - Es sollte eine Meldung mit ``datasource is working. 3 buckets found`` erscheinen
 
 ### 4. Erstellen Sie in Grafana ein neues Dashboard und richten Sie ein Diagramm Widget für die CPU und Memory Auslastung ein.
 
