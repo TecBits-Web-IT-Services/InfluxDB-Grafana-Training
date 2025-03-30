@@ -1,6 +1,6 @@
 # Grafana - Aufgabenfeld 7: Konfiguration von Alerts und Benachrichtigungen
 
-### 1. Starten Sie den Telegraph Prozess aus Aufgabenfeld 3 um die aktuellen Metriken des Rechners in der InfluxDB zu erfassen.
+### 1. Starten Sie den Telegraph Prozess aus Aufgabenfeld 3 um die aktuellen Metriken des Rechners in der InfluxDB zu erfassen
 ### 2. Erstellen Sie ein neues Dashboard "Computer Monitoring" mit einem Diagramm für die aktelle CPU Auslastung aus dem Computer Monitoring Bucket
 
 > Hinweis:
@@ -19,12 +19,12 @@ from(bucket: "computer-monitoring")
   |> filter(fn: (r) => r["host"] == "TestVm-Ubuntu24")
 ```
 
-### 3.**Notification Channel / Contact Point einrichten:**
+### 3.**Notification Channel / Contact Point einrichten**
     - Konfigurieren Sie E-Mail-Benachrichtigungen in Grafana im Bereich Alerting/Contact Points.
       - editieren Sie den Bereits vorhandene "grafana-default-email" Endpunkt und tragen Sie Ihre E-Mail Adresse ein
       - Verifizieren Sie über den Test Button die Funktion
 
-### 3. **Alert-Regel definieren:**  
+### 3. **Alert-Regel definieren**  
    - Erstellen Sie eine Alert-Regel mit folgenden Parametern:  
      - **Name:** CPU Load > 50%
      - **Bedingung:** CPU-Auslastung liegt länger als 1 Minuten über 50 %.  

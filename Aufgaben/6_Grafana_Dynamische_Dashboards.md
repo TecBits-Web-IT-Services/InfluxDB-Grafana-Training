@@ -1,9 +1,9 @@
 # Grafana - Aufgabenfeld 6: Erstellung dynamischer Dashboards mit Variablen (Templating)
 
-### 1. **Neues Dashboard anlegen:**
+### 1. **Neues Dashboard anlegen**
    Erstellen Sie ein neues Dashboard in Grafana mit dem Namen "AirSensors" und fügen Sie mindestens ein Diagramm-Panel hinzu.
 
-### 2. **Variable definieren:**
+### 2. **Variable definieren**
    - Gehen Sie in den Dashboard-Einstellungen auf den Reiter „Variables“ (Variablen).
    - Fügen Sie eine neue Variable mit dem Namen "sensor_id".
    - Definieren Sie die Abfrage zum Abrufen der Hostnamen.
@@ -15,7 +15,7 @@
    - Legen Sie ggf. einen Standardwert fest.
    - Aktivieren Sie die Option "Include All Value" mit dem Custom all Value "All"
 
-### 3. **Dashboard-Panel konfigurieren:**
+### 3. **Dashboard-Panel konfigurieren**
    Ändern Sie die Abfrage des Panels, um die Variable zu nutzen. Beispiel:
    ```flux
     from(bucket: "testdata-web")

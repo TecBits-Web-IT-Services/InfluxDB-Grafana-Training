@@ -23,7 +23,7 @@ systemctl start grafana-server
 - Einrichtung E-Mail Versand
   - öffnen Sie die Grafana Konfigurationsdatei (Ubuntu/Debian -> /etc/grafana/grafana.ini) in einem Editor Ihrer wahl mit Root Rechten
     - Beispiel: **sudo nano /etc/grafana/grafana.ini**
-  - Editieren Sie den Bereich "[smtp]" und ergänzen Sie folgende Informationen und entfernen Sie das ";"
+  - Editieren Sie den Bereich "[smtp]" und ergänzen Sie folgende Informationen und entfernen Sie die ";" in den entsprechenden Zeilen
     -  enabled = true
     -  host = mail01.tecbits.de: 587
     -  user = training@tecbits.de
