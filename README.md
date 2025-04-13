@@ -1,10 +1,10 @@
 ![TecBits Logo](https://www.tecbits.de/user/themes/tecbits/images/logo.png)
 
-# TecBits Web & IT Services – Training für InfluxDB und Grafana
+# TecBits Web & IT Services – Training für InfluxDB/Prometheus und Grafana
 
-Willkommen im offiziellen Repository zu unserem **InfluxDB- und Grafana-Training**! Dieses Repository stellt die neuesten Testdaten und Übungsaufgaben bereit, die Teil unserer praxisorientierten Schulung sind.
+Willkommen im offiziellen Repository zu unserem **InfluxDB- / Prometheus und Grafana-Training**! Dieses Repository stellt die neuesten Testdaten und Übungsaufgaben bereit, die Teil unserer praxisorientierten Schulung sind.
 
-Unsere Trainingsmaterialien wurden speziell entwickelt, um Teilnehmerinnen und Teilnehmern einen umfassenden Einblick in die Arbeit mit **InfluxDB** und **Grafana** zu bieten.
+Unsere Trainingsmaterialien wurden speziell entwickelt, um Teilnehmerinnen und Teilnehmern einen umfassenden Einblick in die Arbeit mit **InfluxDB**, **Prometheus** und **Grafana** zu bieten.
 
 ---
 
