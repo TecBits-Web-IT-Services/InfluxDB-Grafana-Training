@@ -171,7 +171,7 @@ Der Textfile-Collector ermöglicht es, benutzerdefinierte Metriken zu erstellen.
 # Erstellen eines Skripts zur Erfassung der SSH-Verbindungen
 cat > /usr/local/bin/ssh_connections.sh << 'EOF'
 #!/bin/bash
-count=$(netstat -tn | grep :22 | grep ESTABLISHED | wc -l)
+count=$(netstat -tn | grep :22 | grep -e ESTABLISHED -e VERBUNDEN | wc -l)
 echo "# HELP ssh_connections_total Current number of SSH connections"
 echo "# TYPE ssh_connections_total gauge"
 echo "ssh_connections_total $count"
