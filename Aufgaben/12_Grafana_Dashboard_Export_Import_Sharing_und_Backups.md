@@ -4,4 +4,4 @@
 
 ### 2. Importieren Sie das Computer-Monitoring Dashboard aus der Datei "ComputerMonitoring.json" aus dem Beispielkonfigurationen Ordner
 > Hinweis:
-> - Nach dem Inport müssen Sie oben im Dashboard noch das Bucket computer-monitoring auswählen und die Daten angezeigt zu bekommen
+> - Nach dem Import müssen Sie oben im Dashboard noch das Bucket computer-monitoring auswählen, um die Daten angezeigt zu bekommen

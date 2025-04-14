@@ -4,7 +4,7 @@
    Erstellen Sie ein neues Dashboard in Grafana mit dem Namen "AirSensors" und fügen Sie mindestens ein Diagramm-Panel hinzu.
 
 ### 2. **Variable definieren**
-   - Gehen Sie in den Dashboard-Einstellungen auf den Reiter „Variables“ (Variablen).
+   - Gehen Sie in den Dashboard-Einstellungen auf den Reiter „Variables" (Variablen).
    - Fügen Sie eine neue Variable mit dem Namen "sensor_id".
    - Definieren Sie die Abfrage zum Abrufen der Hostnamen.
      - **FLUX-Abfrage:**
@@ -26,13 +26,13 @@
    ```
 
 ### 4. **Testen**
-   Wählen Sie unterschiedliche Sensor IDs aus der Variable und beobachten Sie die Änderungen im Dashboard.
+   Wählen Sie unterschiedliche Sensor-IDs aus der Variable und beobachten Sie die Änderungen im Dashboard.
 
-### 5. **Weiteres Diagframm einfügen**
-   Fügen Sie dem Air Sensor Dashboard weitere Diagramme hinzu um die Luftfeuchtigkeit und den CO-Wert anzuzeigen.
+### 5. **Weiteres Diagramm einfügen**
+   Fügen Sie dem Air Sensor Dashboard weitere Diagramme hinzu, um die Luftfeuchtigkeit und den CO-Wert anzuzeigen.
 
 ### 6. **Annotations**
-   Fügen Sie dem Air Sensor Dashboard, in seinen Einstellungen, eine Annotation für die Temperatur hinzu um einen Anstieg des
+   Fügen Sie dem Air Sensor Dashboard in seinen Einstellungen eine Annotation für die Temperatur hinzu, um einen Anstieg des
    Wertes über 75 °C über alle Diagramme des Sensors angezeigt zu bekommen.
 
    Prüfen Sie im Anschluss, bei welchem Sensor ein solches Ereignis eingetreten ist.
