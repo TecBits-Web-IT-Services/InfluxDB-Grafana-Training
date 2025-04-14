@@ -15,6 +15,18 @@ Unsere Trainingsmaterialien wurden speziell entwickelt, um Teilnehmerinnen und T
 
 **Hinweis**: Die relevanten Dateien finden Sie in der [aktuellen Release-Version](https://github.com/TecBits-Web-IT-Services/InfluxDB-Grafana-Training/releases).
 
+## Voraussetzungen
+
+- Ubuntu 24.04 Server oder VM
+- Grundlegende Linux-Kenntnisse
+- Grundlegende Kenntnisse über Monitoring-Konzepte
+
+## Hinweise
+
+- Die Schulungsmaterialien sind für praktische Übungen konzipiert
+- Jedes Aufgabenfeld baut auf dem vorherigen auf
+- Bei Problemen mit den Konfigurationen können die Beispielkonfigurationen als Referenz verwendet werden
+
 ---
 
 ## Interesse an unserer Schulung?
