@@ -1,4 +1,4 @@
-# Prometheus - Aufgabenfeld 10 : Erfassung von Leistungsmetriken mit Node Exporter
+# Prometheus - Aufgabenfeld 6 : Erfassung von Leistungsmetriken mit Node Exporter
 
 ## Installation und Konfiguration von Node Exporter zur Überwachung von Systemmetriken
 

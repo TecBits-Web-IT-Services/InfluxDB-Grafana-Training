@@ -1,4 +1,4 @@
-# Prometheus - Aufgabenfeld 11 : Integration mit Grafana
+# Prometheus - Aufgabenfeld 9: Integration mit Grafana
 
 ## Konfiguration von Grafana zur Visualisierung von Prometheus-Metriken
 

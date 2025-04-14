@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 7: Konfiguration von Alerts und Benachrichtigungen
+# Grafana - Aufgabenfeld 11: Konfiguration von Alerts und Benachrichtigungen
 
 ### 1. Starten Sie den Telegraph Prozess aus Aufgabenfeld 3 um die aktuellen Metriken des Rechners in der InfluxDB zu erfassen
 ### 2. Erstellen Sie ein neues Dashboard "Computer Monitoring" mit einem Diagramm für die aktelle CPU Auslastung aus dem Computer Monitoring Bucket

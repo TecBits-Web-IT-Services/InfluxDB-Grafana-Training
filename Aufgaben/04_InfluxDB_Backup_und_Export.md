@@ -1,4 +1,4 @@
-# InfluxDB - Aufgabenfeld 3 : Backups und Datenexport
+# InfluxDB - Aufgabenfeld 4 : Backups und Datenexport
 
 > Hinweis:
 > - Wie bereits in der Schulung besprochen müssen den Operator Token aus der ersten Übung per Export wieder im System hinterlegen um die CLI wieder nutzen zu können.

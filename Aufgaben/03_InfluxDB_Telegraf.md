@@ -1,4 +1,4 @@
-# InfluxDB - Aufgabenfeld 4 : Einrichtung und Verwendung von Telegraf
+# InfluxDB - Aufgabenfeld 3 : Einrichtung und Verwendung von Telegraf
 
 > Hinweis:
 > - sollten Sie Probleme bei den Telegraf Konfiguration haben, finden Sie eine Komplettlösung im Ordner Beispielkonfigurationen in der Datei "Telegraf_Computer_Monitoring_Apache.conf"

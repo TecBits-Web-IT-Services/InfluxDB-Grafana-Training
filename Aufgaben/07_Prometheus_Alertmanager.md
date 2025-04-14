@@ -1,4 +1,4 @@
-# Prometheus - Aufgabenfeld 12 : Alerts und Benachrichtigungen
+# Prometheus - Aufgabenfeld 7 : Alerts und Benachrichtigungen
 
 ## Konfiguration von Prometheus Alertmanager für Benachrichtigungen
 
