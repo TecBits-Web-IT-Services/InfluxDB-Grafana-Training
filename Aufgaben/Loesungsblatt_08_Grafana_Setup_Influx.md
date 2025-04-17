@@ -38,8 +38,8 @@ systemctl start grafana-server
      ```ini
      [smtp]
      enabled = true
-     host = mail01.tecbits.de:587
-     user = training@tecbits.de
+     host = "mail01.tecbits.de:587"
+     user = "training@tecbits.de"
      password = "WIRD WÄHREND DER SCHULUNG AUSGEGEBEN"
      from_address = "training@tecbits.de"
      from_name = "Grafana E-Mail Training"

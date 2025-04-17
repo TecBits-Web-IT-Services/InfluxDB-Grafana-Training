@@ -25,11 +25,11 @@ systemctl start grafana-server
     - Beispiel: **sudo nano /etc/grafana/grafana.ini**
   - Editieren Sie den Bereich "[smtp]" und ergänzen Sie folgende Informationen und entfernen Sie die ";" in den entsprechenden Zeilen
     - enabled = true
-    - host = mail01.tecbits.de:587
-    - user = training@tecbits.de
+    - host = "mail01.tecbits.de:587"
+    - user = "training@tecbits.de"
     - password = **"WIRD WÄHREND DER SCHULUNG AUSGEGEBEN"**
-    - from_address = training@tecbits.de
-    - from_name = Grafana E-Mail Training
+    - from_address = "training@tecbits.de"
+    - from_name = "Grafana E-Mail Training"
   - Starten Sie den Grafana-Service neu
     - **service grafana-server restart**
 
