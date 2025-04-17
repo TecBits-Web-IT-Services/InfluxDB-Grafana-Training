@@ -41,7 +41,7 @@ influx bucket create --name computer-monitoring --org "Test-Organisation"
 4. Klicken Sie auf "Continue"
 5. Geben Sie als Namen "Monitoring" ein
 6. Wählen Sie als Bucket "computer-monitoring" aus
-7. Klicken Sie auf "Create and Verify"
+7. Klicken Sie auf "Save and Test"
 8. Kopieren Sie den angezeigten Token-Befehl in eine Textdatei, er sollte etwa so aussehen:
    ```bash
    export INFLUX_TOKEN=Ihr_Token_Hier

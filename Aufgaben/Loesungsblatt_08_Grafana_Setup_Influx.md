@@ -41,14 +41,15 @@ systemctl start grafana-server
      host = mail01.tecbits.de:587
      user = training@tecbits.de
      password = "WIRD WÄHREND DER SCHULUNG AUSGEGEBEN"
-     from_address = training@tecbits.de
-     from_name = Grafana E-Mail Training
+     from_address = "training@tecbits.de"
+     from_name = "Grafana E-Mail Training"
      ```
 
 3. Speichern Sie die Datei (bei nano: STRG+O, ENTER, STRG+X)
 
-4. Starten Sie den Grafana-Service neu:
+4. Starten Sie den Grafana-Service neu und laden Sie den den Systemd Daemon:
    ```bash
+   systemctl daemon-reload
    service grafana-server restart
    ```
 
@@ -138,7 +139,7 @@ systemctl start grafana-server
      |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
      |> filter(fn: (r) => r["_measurement"] == "apache_access_log")
      |> filter(fn: (r) => r["_field"] == "request")
-     |> filter(fn: (r) => r["host"] == "TestVm-Ubuntu24")
+     |> filter(fn: (r) => r["host"] == "NAME_DER_VM")
      |> filter(fn: (r) => r["path"] == "/var/log/apache2/access.log")
      |> filter(fn: (r) => r["resp_code"] == "200" or r["resp_code"] == "404")
    ```
