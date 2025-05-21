@@ -81,6 +81,9 @@ nano /etc/alertmanager/alertmanager.yml
 
 Ersetzen Sie den Inhalt durch folgende Konfiguration:
 
+> Hinweis : 
+> - Das Passwort für den SMTP Server wird während der Schulung ausgegeben und muss in der unten stehenden Konfiguration ergänzt werden.
+> - Tragen Sie in der Konfiguration IHRE E-Mail-Adresse als Empfänger ein
 ```yaml
 global:
   smtp_smarthost: 'mail01.tecbits.de:587'
@@ -150,13 +153,13 @@ groups:
 - name: node_alerts
   rules:
   - alert: HighCPULoad
-    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
-    for: 5m
+    expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[1m])) * 100) > 80
+    for: 1m
     labels:
       severity: warning
     annotations:
       summary: "Hohe CPU-Auslastung (instance {{ \$labels.instance }})"
-      description: "CPU-Auslastung ist über 80% für mehr als 5 Minuten\n  WERT = {{ \$value }}%"
+      description: "CPU-Auslastung ist über 80% für mehr als 1 Minute\n  WERT = {{ \$value }}%"
 
   - alert: HighMemoryLoad
     expr: 100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 80
@@ -209,9 +212,11 @@ stress --cpu 4 --timeout 360s
 ```
 
 > Hinweis: Installieren Sie das stress-Tool, falls es noch nicht installiert ist:
+> - Je nach Anzahl der verfügbaren CPU Kerne in der Test Maschine können Sie den Wert für die Anzahl der CPU erhöhen oder senken
 > ```bash
 > apt-get install -y stress
 > ```
+> - mit dem PromQL Befehl **"100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)"** können Sie den aktuellen Wert der Auslastung prüfen.
 
 Nach etwa 5 Minuten sollte ein Alert ausgelöst werden, den Sie im Prometheus- und Alertmanager-Webinterface sehen können. Wenn alles korrekt konfiguriert ist, sollten Sie auch eine E-Mail-Benachrichtigung erhalten.
 

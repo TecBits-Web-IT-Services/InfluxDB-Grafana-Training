@@ -1,4 +1,4 @@
-# Prometheus - Aufgabenfeld 9: Integration mit Grafana
+# Prometheus - Aufgabenfeld 12: Integration mit Grafana
 
 ## Konfiguration von Grafana zur Visualisierung von Prometheus-Metriken
 
@@ -40,7 +40,7 @@ systemctl enable grafana-server
   - URL: http://localhost:9090
   - Scrape interval: 10s (oder entsprechend Ihrer Prometheus-Konfiguration)
 - Klicken Sie auf "Save & Test"
-- Sie sollten eine Erfolgsmeldung sehen: "Data source is working"
+- Sie sollten eine Erfolgsmeldung sehen: "Successfully queried the Prometheus API."
 
 ### 3. Erstellen eines einfachen Dashboards für Systemmetriken
 

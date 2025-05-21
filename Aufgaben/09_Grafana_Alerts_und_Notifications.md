@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 11: Konfiguration von Alerts und Benachrichtigungen
+# Grafana - Aufgabenfeld 9: Konfiguration von Alerts und Benachrichtigungen
 
 ### 1. Starten Sie den Telegraf-Prozess aus Aufgabenfeld 3, um die aktuellen Metriken des Rechners in der InfluxDB zu erfassen
 
