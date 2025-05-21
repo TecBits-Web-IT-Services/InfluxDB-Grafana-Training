@@ -82,10 +82,12 @@ systemctl enable prometheus
 # Überprüfen des Status des Prometheus-Dienstes
 systemctl status prometheus
 ```
+> Hinweis: Die Ausgabe des letzten Befehls sollte eine Zeile mit dem Inhalt "Active: active (running)" enthalten.
 
 ### 4. Überprüfen der Prometheus-Installation über das Webinterface
 
-- Öffnen Sie [das Webinterface](http://localhost:9090) im Browser Ihrer Wahl
+- Öffnen Sie [das Webinterface](http://localhost:9090) (http://localhost:9090) im Browser Ihrer Wahl
+    - Sollten Sie eine andere Umgebung als die durch die GFU Bereitgestellte verwenden müssen Sie gegebenenfalls einen anderen Hostname/IP anstatt von "localhost" verwenden
 - Überprüfen Sie, ob die Prometheus-Benutzeroberfläche angezeigt wird
 - Navigieren Sie zu Status > Targets, um zu überprüfen, ob Prometheus sich selbst überwacht
 
