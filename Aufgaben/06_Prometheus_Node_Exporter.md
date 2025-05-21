@@ -61,8 +61,9 @@ systemctl status node_exporter
 
 ```bash
 # Testen, ob Node Exporter Metriken bereitstellt
-curl http://localhost:9100/metrics | head
+curl http://localhost:9100/metrics
 ```
+Sollten Sie eine andere Umgebung als die durch die GFU Bereitgestellte verwenden müssen Sie gegebenenfalls einen anderen Hostname/IP anstatt von "localhost" verwenden
 
 Sie sollten eine Ausgabe mit Metriken sehen, die mit `# HELP` und `# TYPE` beginnen, gefolgt von den eigentlichen Metrikdaten.
 
@@ -98,6 +99,7 @@ systemctl restart prometheus
 ### 5. Überprüfen der Node Exporter Integration in Prometheus
 
 - Öffnen Sie das Prometheus-Webinterface unter [http://localhost:9090](http://localhost:9090)
+  - Sollten Sie eine andere Umgebung als die durch die GFU Bereitgestellte verwenden müssen Sie gegebenenfalls einen anderen Hostname/IP anstatt von "localhost" verwenden 
 - Navigieren Sie zu Status > Targets, um zu überprüfen, ob Node Exporter als Ziel erkannt wird
 - Der Status sollte "UP" sein
 
