@@ -89,7 +89,7 @@ main() {
   mv "$EXTRACT_DIR"/* "$TARGET_DIR"/
 
   info "Mache Skripte ausführbar: $TARGET_DIR"
-  chmod +x "$TARGET_DIR"/Skripte
+  chmod +x "$TARGET_DIR"/Skripte/*
 
   info "Fertig. Inhalte bereitgestellt unter:"
   info "  $TARGET_DIR"
