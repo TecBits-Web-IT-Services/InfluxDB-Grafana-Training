@@ -36,6 +36,7 @@ jobs:
           /usr/local/bin/influx bucket delete -n dummy
       - run:  cp ${{ github.workspace }}/Generator/output/* ${{ github.workspace }}/Release/Testdaten
       - run:  cp -R ${{ github.workspace }}/Beispielkonfigurationen ${{ github.workspace }}/Release/
+      - run:  cp -R ${{ github.workspace }}/Skripte ${{ github.workspace }}/Release/
       - name: generate Documents
         uses: baileyjm02/markdown-to-pdf@v1
         with:
