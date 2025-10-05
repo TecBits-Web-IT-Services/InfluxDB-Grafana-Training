@@ -80,13 +80,21 @@ Fügen Sie einen neuen Job für Node Exporter im Abschnitt `scrape_configs` hinz
 
 ```yaml
 scrape_configs:
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
-  
-  - job_name: 'node_exporter'
+  - job_name: 'node_exporter_host1'
     static_configs:
       - targets: ['localhost:9100']
+    relabel_configs:
+      - source_labels: ['__address__']
+        target_label: 'instance'
+        replacement: 'Host-1'
+
+  - job_name: 'node_exporter_host2'
+    static_configs:
+      - targets: ['localhost:9100']
+    relabel_configs:
+      - source_labels: ['__address__']
+        target_label: 'instance'
+        replacement: 'Host-2'
 ```
 
 Speichern Sie die Datei und starten Sie Prometheus neu:

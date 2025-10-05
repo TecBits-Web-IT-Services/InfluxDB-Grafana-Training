@@ -31,9 +31,22 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'node_exporter'
+  - job_name: 'node_exporter_host1'
     static_configs:
       - targets: ['localhost:9100']
+    relabel_configs:
+      - source_labels: ['__address__']
+        target_label: 'instance'
+        replacement: 'Host-1'
+
+  - job_name: 'node_exporter_host2'
+    static_configs:
+      - targets: ['localhost:9100']
+    relabel_configs:
+      - source_labels: ['__address__']
+        target_label: 'instance'
+        replacement: 'Host-2'
+
 EOF
 chown prometheus:prometheus /etc/prometheus/prometheus.yml || true
 

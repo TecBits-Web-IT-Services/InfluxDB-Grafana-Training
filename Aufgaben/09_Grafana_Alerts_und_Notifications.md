@@ -33,10 +33,10 @@ from(bucket: "computer-monitoring")
   - Fügen Sie einen Folder mit dem Namen "Training" hinzu
   - Fügen Sie eine Benachrichtigungsgruppe "Computer Monitoring" hinzu
   - Speichern Sie den Alert
-- Führen Sie auf der Linux Shell den Befehl ***"yes"*** aus, um künstlich CPU-Last zu erzeugen und warten Sie auf den Alert
+- Führen Sie auf der Linux Shell den Befehl ***"stress --cpu 8 --timeout 2m"*** aus, um künstlich CPU-Last zu erzeugen und warten Sie auf den Alert
 
 > Hinweis:
->  - Für den Test können Sie im Linux Terminal den Befehl ***"yes"*** verwenden, um künstlich CPU-Last zu erzeugen
+>  - Für den Test können Sie im Linux Terminal den Befehl ***"stress --cpu 8 --timeout 2m"*** verwenden, um künstlich CPU-Last zu erzeugen
 >  - Der Wert der Metrik entspricht einem Bereich von 0-1 pro CPU-Kern (0-100% Last), bei 6 Kernen läuft der Bereich demnach von 0-6 und 50% entsprechen in diesem Beispiel einem Wert von 3
 >  - Sie können beim Erstellen der Regel per "Preview alert Rule Condition" prüfen, ob Ihre Abfrage funktioniert und ob sie bereits ausgelöst werden würde.
 

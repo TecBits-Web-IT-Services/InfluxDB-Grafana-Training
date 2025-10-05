@@ -111,9 +111,9 @@ Dieses Lösungsblatt enthält die Lösungen für die Aufgaben aus dem Aufgabenfe
 
 5. Klicken Sie auf "Save and exit", um die Alert-Regel zu speichern
 
-6. Öffnen Sie ein Terminal und führen Sie den Befehl `yes` aus, um künstlich CPU-Last zu erzeugen:
+6. Öffnen Sie ein Terminal und führen Sie den Befehl `stress --cpu 8 --timeout 2m` aus, um künstlich CPU-Last zu erzeugen:
    ```bash
-   yes > /dev/null
+   stress --cpu 8 --timeout 2m
    ```
 
 7. Warten Sie etwa 1-2 Minuten, bis der Alert ausgelöst wird
@@ -122,7 +122,7 @@ Dieses Lösungsblatt enthält die Lösungen für die Aufgaben aus dem Aufgabenfe
 
 8. Sobald der Alert ausgelöst wurde, sollten Sie eine E-Mail-Benachrichtigung erhalten
 
-9. Beenden Sie den `yes`-Befehl mit STRG+C, um die CPU-Last zu reduzieren
+9. Beenden Sie den Befehl mit STRG+C, um die CPU-Last zu reduzieren
 
 10. Warten Sie, bis der Alert-Status wieder auf "Normal" zurückgeht
 
@@ -130,7 +130,6 @@ Dieses Lösungsblatt enthält die Lösungen für die Aufgaben aus dem Aufgabenfe
 
 - Die CPU-Auslastung wird in Prozent gemessen (0-100%)
 - Bei mehreren CPU-Kernen kann der Wert auch über 100% liegen, da jeder Kern bis zu 100% beitragen kann
-- Der Befehl `yes` erzeugt kontinuierlich Ausgabe und belastet dadurch die CPU
 - Für reale Anwendungen sollten Sie die Schwellenwerte und Zeiträume sorgfältig wählen, um unnötige Alarme zu vermeiden
 - Grafana bietet verschiedene Benachrichtigungskanäle, darunter E-Mail, Slack, PagerDuty, und mehr
 - Sie können mehrere Benachrichtigungskanäle für einen Alert konfigurieren

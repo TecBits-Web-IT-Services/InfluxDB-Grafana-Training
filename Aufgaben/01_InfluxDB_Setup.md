@@ -23,7 +23,7 @@ echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515 influxdat
 | tee /etc/apt/sources.list.d/influxdata.list
 
 # Installieren von influxdb2
-apt-get update && apt-get install influxdb2
+apt-get update && apt-get install influxdb2 stress
 
 # Starten von InfluxDB als Dienst
 service influxdb start

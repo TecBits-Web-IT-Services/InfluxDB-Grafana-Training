@@ -7,4 +7,4 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 apt-get update
-apt-get install -y curl nano mc net-tools wget gnupg2 software-properties-common
+apt-get install -y curl nano mc net-tools wget gnupg2 software-properties-common stress
