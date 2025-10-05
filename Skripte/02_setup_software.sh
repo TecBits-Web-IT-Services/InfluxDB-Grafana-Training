@@ -19,3 +19,5 @@ bash "$SCRIPT_DIR/02e_install_alertmanager.sh"
 bash "$SCRIPT_DIR/02f_install_grafana.sh"
 
 echo "Alle Komponenten wurden installiert."
+
+bash "$SCRIPT_DIR/03_check_status.sh"

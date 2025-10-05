@@ -16,4 +16,3 @@ echo "943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515 influxdat
 | tee /etc/apt/sources.list.d/influxdata.list
 apt-get update && apt-get install -y influxdb2
 service influxdb start
-service influxdb status
