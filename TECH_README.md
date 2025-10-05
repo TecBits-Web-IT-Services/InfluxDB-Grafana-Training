@@ -36,6 +36,7 @@ Die Skripte dazu befinden sich im Ordner `Skripte`:.
   - Skripte/02d_install_node_exporter.sh – Node Exporter
   - Skripte/02e_install_alertmanager.sh – Alertmanager
   - Skripte/02f_install_grafana.sh – Grafana
+  - Skripte/02g_add_custom_configs.sh — Add Custom Configs
   - Skripte/03_check_status.sh - Check Services
 
 Wichtig: Alle diese Skripte benötigen Root-Rechte.
@@ -51,5 +52,6 @@ Wichtig: Alle diese Skripte benötigen Root-Rechte.
   sudo bash Skripte/02d_install_node_exporter.sh
   sudo bash Skripte/02e_install_alertmanager.sh
   sudo bash Skripte/02f_install_grafana.sh
+  sudo bash Skripte/02g_add_custom_configs.sh
   sudo bash Skripte/03_check_status.sh
 ```
