@@ -84,19 +84,9 @@ main() {
   local EXTRACT_DIR="$TMP_DIR/extracted"
   extract_zip "$ZIP_FILE" "$EXTRACT_DIR"
 
-  # Finde das Top-Level-Verzeichnis aus dem Archiv
-  local TOP
-  TOP=$(find "$EXTRACT_DIR" -mindepth 1 -maxdepth 1 -type d | head -n1 || true)
-  if [[ -z "${TOP:-}" ]]; then
-    err "Konnte entpackten Inhalt nicht finden."
-    exit 1
-  fi
-
   info "Kopiere Dateien nach: $TARGET_DIR"
   mkdir -p "$TARGET_DIR"
-  shopt -s dotglob nullglob
-  mv "$TOP"/* "$TARGET_DIR"/
-  shopt -u dotglob nullglob
+  mv "$EXTRACT_DIR"/* "$TARGET_DIR"/
 
   info "Fertig. Inhalte bereitgestellt unter:"
   info "  $TARGET_DIR"
