@@ -134,7 +134,8 @@ main() {
 
   local TMP_DIR
   TMP_DIR=$(mktemp -d)
-  trap "rm -rf '$TMP_DIR'" EXIT
+  __TMP_DIR="$TMP_DIR"
+  trap 'tmp="${__TMP_DIR-}"; if [ -n "$tmp" ]; then rm -rf -- "$tmp"; fi' EXIT
 
   info "Ermittle neueste Release-ZIP …"
   local ZIP_URL
