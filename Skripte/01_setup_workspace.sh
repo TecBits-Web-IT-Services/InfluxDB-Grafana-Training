@@ -9,6 +9,7 @@ set -euo pipefail
 
 OWNER="TecBits-Web-IT-Services"
 REPO="InfluxDB-Grafana-Training"
+DOWNLOADURL="https://github.com/${OWNER}/${REPO}/releases/latest/download/release.zip"
 REPO_NAME="$REPO"
 
 info() { printf "[INFO] %s\n" "$*"; }
@@ -43,11 +44,6 @@ download_to() {
   wget -q -O "$out" "$url"
 }
 
-# Liefert die feste URL zum neuesten Release-Asset release.zip
-get_release_zip_url() {
-  echo "https://github.com/${OWNER}/${REPO}/releases/latest/download/release.zip"
-}
-
 # Entpackt eine ZIP-Datei nach Zielverzeichnis (unzip)
 extract_zip() {
   local zipfile="$1" dest="$2"
@@ -78,7 +74,7 @@ main() {
 
   info "Ermittle neueste Release-ZIP …"
   local ZIP_URL
-  ZIP_URL=$(get_release_zip_url)
+  ZIP_URL="$DOWNLOADURL"
   if [[ -z "${ZIP_URL:-}" ]]; then
     err "Konnte keine ZIP-URL ermitteln."
     exit 1
