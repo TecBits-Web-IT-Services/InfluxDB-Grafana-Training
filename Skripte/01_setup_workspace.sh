@@ -75,11 +75,6 @@ main() {
   info "Ermittle neueste Release-ZIP …"
   local ZIP_URL
   ZIP_URL="$DOWNLOADURL"
-  if [[ -z "${ZIP_URL:-}" ]]; then
-    err "Konnte keine ZIP-URL ermitteln."
-    exit 1
-  fi
-  info "ZIP-Quelle: $ZIP_URL"
 
   local ZIP_FILE="$TMP_DIR/src.zip"
   info "Lade ZIP herunter …"
