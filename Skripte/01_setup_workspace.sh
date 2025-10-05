@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 # Erstellt auf dem Desktop des Benutzers den Ordner "Workspace" und
-# lädt dort die aktuelle Release-Version des Repositories als ZIP herunter
-# und entpackt sie ohne Git-Abhängigkeit.
+# lädt dort die aktuelle Release-Version des Repositories als ZIP herunter und entpackt diese
+
+# Hinweis: Benötigt unter Ubuntu: wget und unzip.
 #
-# Anforderung: Kein git erforderlich. Bevorzugt wird der neueste Release-Stand.
-# Fallback: Wenn kein Release ermittelt werden kann, wird der Standard-Branch als ZIP geladen.
-#
-# Hinweis: Es wird versucht, curl oder wget zu verwenden. Zum Entpacken wird
-# bevorzugt 'unzip' genutzt; falls nicht vorhanden, wird Python (zipfile) verwendet.
 
 set -euo pipefail
 
@@ -39,117 +35,26 @@ get_desktop_dir() {
   echo "$HOME/Desktop"
 }
 
-have_cmd() { command -v "$1" >/dev/null 2>&1; }
 
-# Lädt eine URL in eine Datei (nutzt curl oder wget)
+
+# Lädt eine URL in eine Datei (verwendet wget)
 download_to() {
   local url="$1" out="$2"
-  if have_cmd curl; then
-    curl -fL --retry 3 --retry-delay 2 -o "$out" "$url"
-  elif have_cmd wget; then
-    wget -q -O "$out" "$url"
-  else
-    err "Weder curl noch wget gefunden. Bitte eines davon installieren."
-    return 1
-  fi
+  wget -q -O "$out" "$url"
 }
 
-# Ermittelt die URL des Assets "release.zip" des neuesten Releases über die GitHub API.
-# Fällt auf den Source-Zipball bzw. den Standard-Branch (main/master) zurück, wenn kein Asset gefunden wird.
-get_latest_zip_url() {
-  local api="https://api.github.com/repos/${OWNER}/${REPO}/releases/latest"
-  local json url=""
-  if have_cmd curl; then
-    json=$(curl -fsSL "$api" || true)
-  elif have_cmd wget; then
-    json=$(wget -q -O - "$api" || true)
-  else
-    json=""
-  fi
-
-  if [[ -n "$json" ]]; then
-    # Bevorzugt per Python (falls vorhanden) sauber aus JSON lesen
-    if have_cmd python3; then
-      url=$(python3 - <<'PY'
-import sys, json
-j = json.load(sys.stdin)
-for a in j.get('assets', []):
-    if a.get('name') == 'release.zip' and a.get('browser_download_url'):
-        print(a['browser_download_url'])
-        break
-PY
-      <<<"$json") || true
-    elif have_cmd python; then
-      url=$(python - <<'PY'
-import sys, json
-j = json.load(sys.stdin)
-for a in j.get('assets', []):
-    if a.get('name') == 'release.zip' and a.get('browser_download_url'):
-        print(a['browser_download_url'])
-        break
-PY
-      <<<"$json") || true
-    fi
-
-    # Falls keine Python-Laufzeit, versuche grobes sed-Matching innerhalb des passenden Asset-Objekts
-    if [[ -z "$url" ]]; then
-      # Einfache Heuristik: Alles in eine Zeile, den Abschnitt um name==release.zip finden und daraus browser_download_url extrahieren
-      url=$(printf %s "$json" | tr -d '\n' | sed -n 's/.*\{[^\}]*"name"[[:space:]]*:[[:space:]]*"release\.zip"[^\}]*"browser_download_url"[[:space:]]*:[[:space:]]*"\([^"]*\)"[^\}]*\}.*/\1/p' | head -n1)
-    fi
-
-    if [[ -n "$url" ]]; then
-      echo "$url"
-      return 0
-    fi
-
-    # Fallback: wenn kein Asset gefunden wurde, nimm zipball_url (Source ZIP des Tags)
-    local zipball
-    zipball=$(printf %s "$json" | sed -n 's/.*"zipball_url"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -n1)
-    if [[ -n "$zipball" ]]; then
-      echo "$zipball"
-      return 0
-    fi
-  fi
-
-  # Letzter Fallback: Branch-ZIPs
-  local branch_zip="https://github.com/${OWNER}/${REPO}/archive/refs/heads/main.zip"
-  if have_cmd curl; then
-    if curl -fsI "$branch_zip" >/dev/null 2>&1; then
-      echo "$branch_zip"; return 0
-    fi
-  elif have_cmd wget; then
-    if wget --spider -q "$branch_zip" >/dev/null 2>&1; then
-      echo "$branch_zip"; return 0
-    fi
-  fi
-  echo "https://github.com/${OWNER}/${REPO}/archive/refs/heads/master.zip"
+# Liefert die feste URL zum neuesten Release-Asset release.zip
+get_release_zip_url() {
+  echo "https://github.com/${OWNER}/${REPO}/releases/latest/download/release.zip"
 }
 
-# Entpackt eine ZIP-Datei nach Zielverzeichnis (unzip oder Python)
+# Entpackt eine ZIP-Datei nach Zielverzeichnis (unzip)
 extract_zip() {
   local zipfile="$1" dest="$2"
   mkdir -p "$dest"
-  if have_cmd unzip; then
-    unzip -q "$zipfile" -d "$dest"
-  elif have_cmd python3; then
-    python3 - "$zipfile" "$dest" <<'PY'
-import sys, zipfile, os
-zf_path, dest = sys.argv[1], sys.argv[2]
-with zipfile.ZipFile(zf_path) as zf:
-    zf.extractall(dest)
-PY
-  elif have_cmd python; then
-    python - "$zipfile" "$dest" <<'PY'
-import sys, zipfile, os
-zf_path, dest = sys.argv[1], sys.argv[2]
-with zipfile.ZipFile(zf_path) as zf:
-    zf.extractall(dest)
-PY
-  else
-    err "Weder 'unzip' noch 'python(3)' vorhanden, kann ZIP nicht entpacken."
-    return 1
-  fi
+  unzip -q "$zipfile" -d "$dest"
 }
+
 
 main() {
   local DESKTOP_DIR WORKSPACE_DIR TARGET_DIR
@@ -173,7 +78,7 @@ main() {
 
   info "Ermittle neueste Release-ZIP …"
   local ZIP_URL
-  ZIP_URL=$(get_latest_zip_url)
+  ZIP_URL=$(get_release_zip_url)
   if [[ -z "${ZIP_URL:-}" ]]; then
     err "Konnte keine ZIP-URL ermitteln."
     exit 1
