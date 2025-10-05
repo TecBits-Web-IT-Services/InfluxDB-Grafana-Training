@@ -54,11 +54,11 @@ download_to() {
   fi
 }
 
-# Ermittelt die ZIP-URL des neuesten Releases über die GitHub API.
-# Fällt auf den Standard-Branch (main/master) zurück, wenn kein Release vorhanden ist.
+# Ermittelt die URL des Assets "release.zip" des neuesten Releases über die GitHub API.
+# Fällt auf den Source-Zipball bzw. den Standard-Branch (main/master) zurück, wenn kein Asset gefunden wird.
 get_latest_zip_url() {
   local api="https://api.github.com/repos/${OWNER}/${REPO}/releases/latest"
-  local json zip
+  local json url=""
   if have_cmd curl; then
     json=$(curl -fsSL "$api" || true)
   elif have_cmd wget; then
@@ -68,17 +68,51 @@ get_latest_zip_url() {
   fi
 
   if [[ -n "$json" ]]; then
-    # zipball_url extrahieren (einfaches sed/grep, kein jq erforderlich)
-    zip=$(printf %s "$json" | sed -n 's/.*"zipball_url"\s*:\s*"\([^"]*\)".*/\1/p' | head -n1)
-    if [[ -n "${zip:-}" ]]; then
-      echo "$zip"
+    # Bevorzugt per Python (falls vorhanden) sauber aus JSON lesen
+    if have_cmd python3; then
+      url=$(python3 - <<'PY'
+import sys, json
+j = json.load(sys.stdin)
+for a in j.get('assets', []):
+    if a.get('name') == 'release.zip' and a.get('browser_download_url'):
+        print(a['browser_download_url'])
+        break
+PY
+      <<<"$json") || true
+    elif have_cmd python; then
+      url=$(python - <<'PY'
+import sys, json
+j = json.load(sys.stdin)
+for a in j.get('assets', []):
+    if a.get('name') == 'release.zip' and a.get('browser_download_url'):
+        print(a['browser_download_url'])
+        break
+PY
+      <<<"$json") || true
+    fi
+
+    # Falls keine Python-Laufzeit, versuche grobes sed-Matching innerhalb des passenden Asset-Objekts
+    if [[ -z "$url" ]]; then
+      # Einfache Heuristik: Alles in eine Zeile, den Abschnitt um name==release.zip finden und daraus browser_download_url extrahieren
+      url=$(printf %s "$json" | tr -d '\n' | sed -n 's/.*\{[^\}]*"name"[[:space:]]*:[[:space:]]*"release\.zip"[^\}]*"browser_download_url"[[:space:]]*:[[:space:]]*"\([^"]*\)"[^\}]*\}.*/\1/p' | head -n1)
+    fi
+
+    if [[ -n "$url" ]]; then
+      echo "$url"
+      return 0
+    fi
+
+    # Fallback: wenn kein Asset gefunden wurde, nimm zipball_url (Source ZIP des Tags)
+    local zipball
+    zipball=$(printf %s "$json" | sed -n 's/.*"zipball_url"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -n1)
+    if [[ -n "$zipball" ]]; then
+      echo "$zipball"
       return 0
     fi
   fi
 
-  # Fallbacks auf Branch-ZIPs
+  # Letzter Fallback: Branch-ZIPs
   local branch_zip="https://github.com/${OWNER}/${REPO}/archive/refs/heads/main.zip"
-  # Teste, ob main existiert (HEAD 200/302). Wenn Testtools fehlen, nehmen wir main als Standard.
   if have_cmd curl; then
     if curl -fsI "$branch_zip" >/dev/null 2>&1; then
       echo "$branch_zip"; return 0
