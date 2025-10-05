@@ -168,7 +168,7 @@ main() {
   mv "$TOP"/* "$TARGET_DIR"/
   shopt -u dotglob nullglob
 
-  info "Fertig. Inhalte wurden ohne Git bereitgestellt unter:"
+  info "Fertig. Inhalte bereitgestellt unter:"
   info "  $TARGET_DIR"
 }
 
