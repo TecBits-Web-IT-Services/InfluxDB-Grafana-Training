@@ -43,7 +43,7 @@ Wichtig: Alle diese Skripte benötigen Root-Rechte.
 
 - Alles in einem Rutsch installieren (empfohlen):
 ```
-  sudo bash Skripte/full-setup.sh
+  sudo bash Skripte/02_setup_software.sh
 ```
 - Einzelne Komponenten installieren:
 ```
