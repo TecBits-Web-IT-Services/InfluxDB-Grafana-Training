@@ -10,7 +10,7 @@
 > In der Überischt sollten Sie bereits 3 Regeln sehen können
 > - Diese sind die Regeln, welche in Aufgabenfeld 7 im Prometheus Alert Manager von Ihnen oder von uns während des Setups konfiguriert wurden.
 
-### 3. Erstellen Sie eine neuen Alert-Regel
+### 3. Erstellen Sie eine neue Alert-Regel
 
 - Klicken Sie auf "Create alert rule"
 - Wählen Sie "Prometheus" als Datenquelle
