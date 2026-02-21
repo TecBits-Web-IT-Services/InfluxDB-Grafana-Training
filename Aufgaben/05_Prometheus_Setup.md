@@ -1,4 +1,4 @@
-# Prometheus - Aufgabenfeld 5: Setup
+# Prometheus - Aufgabenfeld 5: Setup und Grundkonfiguration
 
 ## Installation von Prometheus unter Ubuntu 24.04
 
@@ -15,11 +15,11 @@ apt-get update && apt-get install -y curl net-tools wget gnupg2 software-propert
 ### 2. Installation von Prometheus über die Linux Shell
 
 ```bash
-# Herunterladen und Installieren von Prometheus
-wget https://github.com/prometheus/prometheus/releases/download/v2.46.0/prometheus-2.46.0.linux-amd64.tar.gz
+# Herunterladen und Installieren von Prometheus (aktuelle LTS-Version)
+wget https://github.com/prometheus/prometheus/releases/download/v2.54.1/prometheus-2.54.1.linux-amd64.tar.gz
 
 # Entpacken des Archivs
-tar -xvf prometheus-2.46.0.linux-amd64.tar.gz
+tar -xvf prometheus-2.54.1.linux-amd64.tar.gz
 
 # Erstellen der benötigten Verzeichnisse
 mkdir -p /etc/prometheus
@@ -32,13 +32,13 @@ useradd --no-create-home --shell /bin/false prometheus
 chown prometheus:prometheus /var/lib/prometheus
 
 # Kopieren der Binärdateien
-cp prometheus-2.46.0.linux-amd64/prometheus /usr/local/bin/
-cp prometheus-2.46.0.linux-amd64/promtool /usr/local/bin/
+cp prometheus-2.54.1.linux-amd64/prometheus /usr/local/bin/
+cp prometheus-2.54.1.linux-amd64/promtool /usr/local/bin/
 
 # Kopieren der Konfigurationsdateien
-cp -r prometheus-2.46.0.linux-amd64/consoles /etc/prometheus
-cp -r prometheus-2.46.0.linux-amd64/console_libraries /etc/prometheus
-cp prometheus-2.46.0.linux-amd64/prometheus.yml /etc/prometheus/
+cp -r prometheus-2.54.1.linux-amd64/consoles /etc/prometheus
+cp -r prometheus-2.54.1.linux-amd64/console_libraries /etc/prometheus
+cp prometheus-2.54.1.linux-amd64/prometheus.yml /etc/prometheus/
 
 # Setzen der Berechtigungen
 chown -R prometheus:prometheus /etc/prometheus
@@ -86,7 +86,7 @@ systemctl status prometheus
 
 ### 4. Überprüfen der Prometheus-Installation über das Webinterface
 
-- Öffnen Sie [das Webinterface](http://localhost:9090) (http://localhost:9090) im Browser Ihrer Wahl
+- Öffnen Sie [das Webinterface](http://localhost:9090) (http://localhost:9090) im Browser Firefox in der virtuellen Umgebung
     - Sollten Sie eine andere Umgebung als die durch die GFU Bereitgestellte verwenden müssen Sie gegebenenfalls einen anderen Hostname/IP anstatt von "localhost" verwenden
 - Überprüfen Sie, ob die Prometheus-Benutzeroberfläche angezeigt wird
 - Navigieren Sie zu Status > Targets, um zu überprüfen, ob Prometheus sich selbst überwacht
@@ -103,6 +103,8 @@ cat /etc/prometheus/prometheus.yml
 Die Konfigurationsdatei enthält folgende Hauptabschnitte:
 
 - `global`: Globale Konfigurationseinstellungen wie Scrape-Intervall
+- `rule_files`: Dateien mit Regeln für Alerting und Recording
+- `alerting`: Konfiguration von Alerts
 - `scrape_configs`: Konfiguration der Ziele, von denen Prometheus Metriken sammelt
 
 Hier ist ein Beispiel für die Standardkonfiguration:
@@ -147,7 +149,52 @@ systemctl restart prometheus
 - Öffnen Sie erneut das Webinterface unter [http://localhost:9090](http://localhost:9090)
 - Navigieren Sie zu Status > Configuration, um zu überprüfen, ob Ihre Änderungen übernommen wurden
 
+### 8. Wichtige Prometheus-Konzepte verstehen
+
+#### Time Series Database (TSDB)
+Prometheus verwendet eine lokale Time Series Database zur Speicherung von Metriken. Die Daten werden in `/var/lib/prometheus/` gespeichert.
+
+#### Retention und Storage
+Standardmäßig speichert Prometheus Daten für 15 Tage. Sie können dies mit dem Flag `--storage.tsdb.retention.time` anpassen, welches in der System-Service-Datei aus Schritt 3 angegeben werden muss:
+
+```bash
+# Beispiel: 30 Tage Retention
+# Bearbeiten Sie /etc/systemd/system/prometheus.service und fügen Sie hinzu:
+ExecStart=/usr/local/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --storage.tsdb.retention.time=30d \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries
+```
+
+Im Webinterface unter [http://localhost:9090/flags](http://localhost:9090/flags) können alle aktuellen Flags angezeigt werden.
+
+#### Scraping
+Prometheus sammelt Metriken durch regelmäßiges "Scrapen" (Abrufen) von konfigurierten Endpoints.
+
+#### Labels und Time Series
+Jede Metrik in Prometheus ist eine eindeutige Time Series, identifiziert durch:
+- Metrikname (z.B. `http_requests_total`)
+- Labels (z.B. `{method="GET", status="200"}`)
+
+### 9. Erste PromQL-Abfragen
+
+Testen Sie im Webinterface unter [http://localhost:9090/graph](http://localhost:9090/graph):
+
+```promql
+# Zeigt Build-Informationen von Prometheus
+prometheus_build_info
+
+# Anzahl der Time Series in der Datenbank
+prometheus_tsdb_symbol_table_size_bytes
+
+# HTTP-Anfragen an Prometheus selbst
+rate(prometheus_http_requests_total[5m])
+```
+
 > Hinweise:
 > - Die Prometheus-Konfigurationsdatei verwendet das YAML-Format, achten Sie auf die korrekte Einrückung
 > - Nach jeder Änderung der Konfigurationsdatei muss der Prometheus-Dienst neu gestartet werden
 > - Prometheus bietet eine integrierte Validierung der Konfigurationsdatei mit dem Befehl `promtool check config /etc/prometheus/prometheus.yml`
+> - Verwenden Sie `systemctl reload prometheus` statt `restart` um laufende Scrapes nicht zu unterbrechen (sofern nur Config geändert wurde)
