@@ -8,14 +8,14 @@
 # zum root-Benutzer wechseln
 sudo su
 
-# Herunterladen von Node Exporter
-wget https://github.com/prometheus/node_exporter/releases/download/v1.9.1/node_exporter-1.9.1.linux-amd64.tar.gz
+# Herunterladen von Node Exporter (aktuelle stabile Version)
+wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
 
 # Entpacken des Archivs
-tar -xvf node_exporter-1.9.1.linux-amd64.tar.gz
+tar -xvf node_exporter-1.8.2.linux-amd64.tar.gz
 
 # Kopieren der Binärdatei
-cp node_exporter-1.9.1.linux-amd64/node_exporter /usr/local/bin/
+cp node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin/
 
 # Erstellen eines Node-Exporter-Benutzers
 useradd --no-create-home --shell /bin/false node_exporter
@@ -97,6 +97,25 @@ scrape_configs:
         replacement: 'Host-2'
 ```
 
+> **Erklärung**:
+> - `job_name`: Definiert den Namen des Scraping-Jobs (hier getrennt für `host1` und `host2`)
+> - `targets`: Gibt die Endpunkte an, von denen Metriken abgerufen werden
+> - `relabel_configs`: Erlaubt die dynamische Anpassung von Labels. Hier wird das `instance` Label, das standardmäßig die IP:Port-Kombination enthält, durch einen sprechenden Namen (`Host-1`, `Host-2`) ersetzt.
+>
+> **Best Practice**: Wenn Sie mehrere Server mit derselben Konfiguration überwachen möchten, können Sie diese auch innerhalb eines Jobs zusammenfassen:
+>
+> ```yaml
+> scrape_configs:
+>   - job_name: 'node'
+>     static_configs:
+>       - targets: ['server1.example.com:9100']
+>         labels:
+>           instance: 'Host-1'
+>       - targets: ['server2.example.com:9100']
+>         labels:
+>           instance: 'Host-2'
+> ```
+
 Speichern Sie die Datei und starten Sie Prometheus neu:
 
 ```bash
@@ -136,9 +155,14 @@ Testen Sie einige dieser Metriken im Prometheus-Webinterface:
 # Festplattennutzung in Prozent
 100 - ((node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) * 100)
 
-# Netzwerkverkehr in MB/s
-rate(node_network_receive_bytes_total{device="eth0"}[1m]) / 1024 / 1024
+# Netzwerkverkehr in MB/s (Empfang)
+rate(node_network_receive_bytes_total{device!~"lo|veth.*"}[1m]) / 1024 / 1024
+
+# Netzwerkverkehr in MB/s (Senden)
+rate(node_network_transmit_bytes_total{device!~"lo|veth.*"}[1m]) / 1024 / 1024
 ```
+
+> **Hinweis zu Netzwerk-Interfaces**: Die Query filtert das Loopback-Interface (`lo`) und virtuelle Interfaces (`veth.*`) heraus. Moderne Ubuntu-Systeme verwenden oft `enp*` oder `ens*` statt `eth0` für Netzwerk-Interfaces.
 
 ### 7. Anpassen der Node Exporter Konfiguration
 
@@ -181,20 +205,40 @@ Der Textfile-Collector ermöglicht es, benutzerdefinierte Metriken zu erstellen.
 # Erstellen eines Skripts zur Erfassung der SSH-Verbindungen
 cat > /usr/local/bin/ssh_connections.sh << 'EOF'
 #!/bin/bash
-count=$(netstat -tn | grep :22 | grep -e ESTABLISHED -e VERBUNDEN | wc -l)
-echo "# HELP ssh_connections_total Current number of SSH connections"
-echo "# TYPE ssh_connections_total gauge"
-echo "ssh_connections_total $count"
+
+# Temporäre Datei für atomare Schreiboperationen
+TEMP_FILE="/var/lib/node_exporter/textfile_collector/ssh_connections.prom.$$"
+PROM_FILE="/var/lib/node_exporter/textfile_collector/ssh_connections.prom"
+
+# Fehlerbehandlung
+set -e
+
+# Zähle etablierte SSH-Verbindungen (Port 22)
+# ss ist der moderne Ersatz für netstat
+count=$(ss -tn state established '( sport = :22 or dport = :22 )' | grep -v "^State" | wc -l)
+
+# Prometheus-Format schreiben
+{
+  echo "# HELP ssh_connections_total Current number of established SSH connections"
+  echo "# TYPE ssh_connections_total gauge"
+  echo "ssh_connections_total $count"
+} > "$TEMP_FILE"
+
+# Atomares Verschieben der Datei
+mv "$TEMP_FILE" "$PROM_FILE"
 EOF
 
 # Ausführbar machen
 chmod +x /usr/local/bin/ssh_connections.sh
 
-# Erstellen eines Cron-Jobs, der das Skript regelmäßig ausführt
-(crontab -l 2>/dev/null; echo "* * * * * /usr/local/bin/ssh_connections.sh > /var/lib/node_exporter/textfile_collector/ssh_connections.prom") | crontab -
+# Berechtigungen setzen
+chown root:root /usr/local/bin/ssh_connections.sh
+
+# Erstellen eines Cron-Jobs, der das Skript regelmäßig ausführt (alle 2 Minuten)
+(crontab -l 2>/dev/null; echo "*/2 * * * * /usr/local/bin/ssh_connections.sh 2>&1 | logger -t ssh_connections") | crontab -
 ```
 
-Nach einer Minute sollten Sie die neue Metrik `ssh_connections_total` in Prometheus sehen können.
+Nach zwei Minuten sollten Sie die neue Metrik `ssh_connections_total` in Prometheus sehen können.
 
 > Hinweise:
 > - Node Exporter läuft standardmäßig auf Port 9100

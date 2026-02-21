@@ -9,7 +9,7 @@
 sudo su
 
 # Installation der Tools und Abhängigkeiten
-apt-get update && apt-get install -y curl net-tools wget gnupg2 software-properties-common stress
+apt-get update && apt-get install -y curl net-tools wget gnupg2 software-properties-common stress openssh-server
 ```
 
 ### 2. Installation von Prometheus über die Linux Shell
