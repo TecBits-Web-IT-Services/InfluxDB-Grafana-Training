@@ -7,7 +7,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Installation von Prometheus
-PR_VERSION="2.46.0"
+PR_VERSION="2.54.1"
 PR_ARCHIVE="prometheus-${PR_VERSION}.linux-amd64.tar.gz"
 PR_URL="https://github.com/prometheus/prometheus/releases/download/v${PR_VERSION}/${PR_ARCHIVE}"
 
