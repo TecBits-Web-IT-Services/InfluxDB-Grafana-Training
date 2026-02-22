@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: mkdir ${{ github.workspace }}/Release/Aufgaben -p && mkdir ${{ github.workspace }}/Release/Testdaten
+      - run: mkdir -p ${{ github.workspace }}/Release/Aufgaben/Loesungen -p && mkdir ${{ github.workspace }}/Release/Testdaten
       - name: Install Dependencies
         run: cd ${{ github.workspace }}/Generator && npm install
       - name: Generate base data
@@ -42,6 +42,12 @@ jobs:
         with:
           input_dir: Aufgaben
           output_dir: Release/Aufgaben/
+          build_pdf: false
+      - name: generate solved Documents
+        uses: baileyjm02/markdown-to-pdf@v1
+        with:
+          input_dir: Aufgaben/Loesungen
+          output_dir: Release/Aufgaben/Loesungen
           build_pdf: false
       - uses: vimtor/action-zip@v1.2
         with:
