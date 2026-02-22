@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 10: Erstellung dynamischer Dashboards mit Variablen (Templating)
+# Grafana - Aufgabenfeld 12: Erstellung dynamischer Dashboards mit Variablen (Templating)
 
 ### 1. **Neues Dashboard anlegen**
    Erstellen Sie ein neues Dashboard in Grafana mit dem Namen "AirSensors" und fügen Sie mindestens ein Diagramm-Panel hinzu.

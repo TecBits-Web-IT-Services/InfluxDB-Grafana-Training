@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 10a: Erstellung dynamischer Dashboards mit Variablen (Templating)
+# Grafana - Aufgabenfeld 12a: Erstellung dynamischer Dashboards mit Variablen (Templating)
 
 ## 1. Neues Dashboard anlegen
 - Legen Sie in Grafana ein neues Dashboard an, z.B. mit dem Namen `Server Monitoring Dynamic`.

@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 9a: Konfiguration von Alerts und Benachrichtigungen für Prometheus
+# Grafana - Aufgabenfeld 13a: Konfiguration von Alerts und Benachrichtigungen für Prometheus
 
 ### 1. Konfiguration von Contact Points
 - Editieren Sie unter "Alerting > Contact Points" des Grafana Default Kontaktpunkt und hinterlegen Sie eine gültige Email-Adresse.

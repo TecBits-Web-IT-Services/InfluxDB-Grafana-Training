@@ -1,4 +1,4 @@
-# Lösungsblatt 09 – Grafana Alerts und Notifications (InfluxDB)
+# Lösungsblatt 13 – Grafana Alerts und Notifications (InfluxDB)
 
 Dieses Lösungsblatt beschreibt das Erstellen einer Alarmregel in Grafana, das Anlegen eines Kontaktpunkts und das Testen der Zustellung.
 

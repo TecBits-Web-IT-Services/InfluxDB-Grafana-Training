@@ -1,4 +1,4 @@
-# Lösungsblatt 10 – Grafana Dynamische Dashboards (InfluxDB)
+# Lösungsblatt 12 – Grafana Dynamische Dashboards (InfluxDB)
 
 Dieses Lösungsblatt zeigt Musterlösungen für Variablen (Templating) und die Verwendung in Flux-Queries, inkl. Annotation-Beispiel.
 

@@ -1,4 +1,4 @@
-# Lösungsblatt 11 – Grafana Dashboard Export, Import, Sharing und Backups
+# Lösungsblatt 14 – Grafana Dashboard Export, Import, Sharing und Backups
 
 Dieses Lösungsblatt zeigt die sicheren Wege, Dashboards zu exportieren, importieren, teilen und zu sichern.
 

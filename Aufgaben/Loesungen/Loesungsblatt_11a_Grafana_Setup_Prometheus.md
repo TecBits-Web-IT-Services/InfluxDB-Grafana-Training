@@ -1,4 +1,4 @@
-# Lösungsblatt 08a – Grafana Setup mit Prometheus
+# Lösungsblatt 11a – Grafana Setup mit Prometheus
 
 Dieses Lösungsblatt ergänzt das Anlegen der Prometheus-Datenquelle und die Erstellung eines kleinen Server-Monitoring-Dashboards.
 

@@ -1,4 +1,4 @@
-# Lösungsblatt 08 – Grafana Setup mit InfluxDB
+# Lösungsblatt 11 – Grafana Setup mit InfluxDB
 
 Dieses Lösungsblatt beschreibt das Anlegen der InfluxDB-Datenquelle in Grafana und die Validierung über ein Beispiel-Panel.
 

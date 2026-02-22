@@ -1,4 +1,4 @@
-# Lösungsblatt 09a – Grafana Alerts und Notifications (Prometheus)
+# Lösungsblatt 13a – Grafana Alerts und Notifications (Prometheus)
 
 Dieses Lösungsblatt zeigt eine Prometheus-basierte Alarmregel in Grafana inkl. Zustellung über Kontaktpunkte.
 

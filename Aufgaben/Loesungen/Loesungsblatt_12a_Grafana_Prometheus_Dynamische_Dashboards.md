@@ -1,4 +1,4 @@
-# Lösungsblatt 10a – Grafana Dynamische Dashboards (Prometheus + Node Exporter)
+# Lösungsblatt 12a – Grafana Dynamische Dashboards (Prometheus + Node Exporter)
 
 Dieses Lösungsblatt liefert Musterlösungen für Variablen und PromQL-Queries mit dem Node Exporter.
 

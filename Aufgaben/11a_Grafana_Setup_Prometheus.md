@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 8: Einrichtung und Verwendung von Grafana mit Prometheus
+# Grafana - Aufgabenfeld 11a: Einrichtung und Verwendung von Grafana mit Prometheus
 
 ## Konfiguration von Grafana zur Visualisierung von Prometheus-Metriken
 

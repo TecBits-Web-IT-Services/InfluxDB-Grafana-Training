@@ -1,4 +1,4 @@
-# Grafana - Aufgabenfeld 8: Einrichtung und Verwendung von Grafana mit InfluxDB
+# Grafana - Aufgabenfeld 11: Einrichtung und Verwendung von Grafana mit InfluxDB
 
 ### 1. Installation von Grafana über die Linux Shell
 
