@@ -47,7 +47,7 @@ jobs:
         uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: Aufgaben/Loesungen
-          output_dir: Release/Aufgaben/Loesungen
+          output_dir: Release/Aufgaben/Loesungen/
           build_pdf: false
       - uses: vimtor/action-zip@v1.2
         with:
