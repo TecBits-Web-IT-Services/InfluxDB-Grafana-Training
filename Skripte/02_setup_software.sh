@@ -19,6 +19,7 @@ bash "$SCRIPT_DIR/02e_install_alertmanager.sh"
 bash "$SCRIPT_DIR/02f_install_grafana.sh"
 bash "$SCRIPT_DIR/02g_install_docker.sh"
 bash "$SCRIPT_DIR/02h_add_custom_configs.sh"
+bash "$SCRIPT_DIR/02i_setup_docker_containers.sh"
 echo "Alle Komponenten wurden installiert."
 
 bash "$SCRIPT_DIR/03_check_status.sh"
