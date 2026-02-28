@@ -39,14 +39,14 @@ ADMIN_TOKEN=""
 
 if [ -f "$TOKEN_FILE" ]; then
   echo "[INFO] Lese Admin-Token aus $TOKEN_FILE..."
-  # Extrahiere Token aus der Zeile "Token: apiv3_..."
-  ADMIN_TOKEN=$(grep "^Token:" "$TOKEN_FILE" | awk '{print $2}')
+  # Extrahiere Token aus der Zeile "Token: apiv3_..." (mit || true um Fehler bei set -e zu vermeiden)
+  ADMIN_TOKEN=$(grep "Token" "$TOKEN_FILE" 2>/dev/null | awk '{print $2}' || true)
 
   if [ -z "$ADMIN_TOKEN" ]; then
     echo "[WARN] Konnte Token nicht aus $TOKEN_FILE extrahieren. Verwende Platzhalter."
     ADMIN_TOKEN="ADMIN_TOKEN"
   else
-    echo "[INFO] Admin-Token erfolgreich gelesen."
+    echo "[INFO] Admin-Token erfolgreich gelesen: ${ADMIN_TOKEN:0:20}..."
   fi
 else
   echo "[WARN] Token-Datei $TOKEN_FILE nicht gefunden. Verwende Platzhalter."
@@ -54,6 +54,7 @@ else
 fi
 
 # Erstelle Konfigurationsdatei mit Token
+echo "[INFO] Erstelle Konfigurationsdatei..."
 cat > /docker/influxdb3-explorer/config/config.json << EOF
 {
   "DEFAULT_INFLUX_SERVER": "http://172.17.0.1:8181",
@@ -61,8 +62,6 @@ cat > /docker/influxdb3-explorer/config/config.json << EOF
   "DEFAULT_SERVER_NAME": "Local InfluxDB 3"
 }
 EOF
-
-echo "[INFO] Konfigurationsdatei erstellt."
 
 echo "[INFO] Starte InfluxDB v3 Explorer Container..."
 docker run --detach \
