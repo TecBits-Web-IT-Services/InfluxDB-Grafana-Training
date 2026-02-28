@@ -1,11 +1,22 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
+if [ "$(id -u)" -ne 0 ]; then
+  echo "Dieses Skript muss als root ausgeführt werden. Bitte mit sudo starten."
+  exit 1
+fi
+
+echo "[INFO] Konfiguriere Prometheus..."
 
 mkdir -p /etc/prometheus/rules
 
-# Prometheus so konfigurieren, dass Prometheus und Node Exporter gescraped werden und der Alertmanager angebunden ist
-if [ -f /etc/prometheus/prometheus.yml ]; then
-  cp /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml.bak || true
+# Erstelle Backup nur wenn Datei existiert und noch kein Backup vorhanden ist
+if [ -f /etc/prometheus/prometheus.yml ] && [ ! -f /etc/prometheus/prometheus.yml.bak ]; then
+  echo "[INFO] Erstelle Backup der ursprünglichen Konfiguration..."
+  cp /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml.bak
 fi
+
+# Prometheus so konfigurieren, dass Prometheus und Node Exporter gescraped werden und der Alertmanager angebunden ist
 cat > /etc/prometheus/prometheus.yml << 'EOF'
 # my global config
 global:
@@ -84,4 +95,12 @@ EOF
 
 chown prometheus:prometheus /etc/prometheus/rules/node_alerts.yml
 
-systemctl restart prometheus || true
+echo "[INFO] Starte Prometheus neu..."
+if systemctl is-active --quiet prometheus; then
+  systemctl restart prometheus
+  echo "[INFO] Prometheus wurde erfolgreich neu gestartet."
+else
+  echo "[WARN] Prometheus-Dienst läuft nicht. Überspringe Neustart."
+fi
+
+echo "[INFO] Prometheus-Konfiguration erfolgreich aktualisiert."

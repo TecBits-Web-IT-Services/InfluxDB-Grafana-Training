@@ -6,10 +6,34 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-#Setup influxDB v3 Explorer
+echo "[INFO] Richte InfluxDB v3 Explorer Container ein..."
+
+# Prüfe, ob Docker installiert ist
+if ! command -v docker >/dev/null 2>&1; then
+  echo "[ERROR] Docker ist nicht installiert. Bitte zuerst Docker installieren."
+  exit 1
+fi
+
+# Prüfe, ob Container bereits existiert
+if docker ps -a --format '{{.Names}}' | grep -q "^influxdb3-explorer$"; then
+  echo "[INFO] Container 'influxdb3-explorer' existiert bereits."
+
+  # Prüfe, ob Container läuft
+  if docker ps --format '{{.Names}}' | grep -q "^influxdb3-explorer$"; then
+    echo "[INFO] Container 'influxdb3-explorer' läuft bereits."
+  else
+    echo "[INFO] Starte Container 'influxdb3-explorer'..."
+    docker start influxdb3-explorer
+  fi
+  exit 0
+fi
+
+# Setup influxDB v3 Explorer
+echo "[INFO] Erstelle Verzeichnisse für InfluxDB v3 Explorer..."
 mkdir -p /docker/influxdb3-explorer/db
 mkdir -p /docker/influxdb3-explorer/config
 
+echo "[INFO] Starte InfluxDB v3 Explorer Container..."
 docker run --detach \
 --name influxdb3-explorer \
 --pull always \
@@ -21,3 +45,5 @@ docker run --detach \
 --restart unless-stopped \
 influxdata/influxdb3-ui:1.6.2 \
 --mode=admin
+
+echo "[INFO] InfluxDB v3 Explorer Container erfolgreich gestartet."
