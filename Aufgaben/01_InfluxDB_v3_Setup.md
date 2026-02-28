@@ -80,31 +80,7 @@ root@student-VirtualBox:/home/student# influxdb3 show databases
 +---------------+
 
 ```
-
-### 4. CLI-Konfiguration und Prüfung
-
-```bash
-# CLI-Profil erstellen
-influxdb3 config create \
-  --name "default" \
-  --url "http://localhost:8086" \
-  --token "$INFLUXDB_TOKEN" \
-  --active
-
-# Anzeige der Hilfe zum CLI Tool
-influxdb3 --help
-
-# Prüfen ob die Konfiguration erfolgreich angelegt wurde
-influxdb3 config list
-
-# Prüfen ob die Verbindung zum Server besteht
-influxdb3 ping
-
-# Datenbanken auflisten
-influxdb3 database list
-```
-
-### 5. Ändern Sie den HTTP-Port auf 8082 und validieren Sie die Änderung
+### 4. Ändern Sie den HTTP-Port auf 8082 und validieren Sie die Änderung
 
 > Hinweise:
 >
@@ -140,7 +116,7 @@ influxdb3 show databases --url "http://localhost:8182"
 ```
 > **STELLEN SIE DEN PORT NUN DER EINFACHHEIT HALBER WIEDER AUF 8181**
 
-### 6. Einrichtung des InfluxDB-Explorers per Docker
+### 5. Einrichtung des InfluxDB-Explorers per Docker
 ```bash
 sudo su
 
@@ -168,4 +144,4 @@ CONTAINER ID   IMAGE                           COMMAND                  CREATED 
 ```
 
 Sie können nun den InfludDB-Explorer unter [http://localhost:8888/](http://localhost:8888/) im Firefox in der virtuellen Maschine erreichen und die Konfiguration dort abschließen.
-Fügen Sie in der Weboberflache einen neuen Server hinzu, verwenden Sie dabei folgende Server URL: http://127.0.0.1:8181
+Fügen Sie in der Weboberflache einen neuen Server hinzu, verwenden Sie dabei folgende Server URL: http://172.17.0.1:8181

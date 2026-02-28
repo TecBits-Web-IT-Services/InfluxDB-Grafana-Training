@@ -33,6 +33,37 @@ echo "[INFO] Erstelle Verzeichnisse für InfluxDB v3 Explorer..."
 mkdir -p /docker/influxdb3-explorer/db
 mkdir -p /docker/influxdb3-explorer/config
 
+# Extrahiere Admin-Token aus der Token-Datei
+TOKEN_FILE="/home/student/Schreibtisch/admin-token.txt"
+ADMIN_TOKEN=""
+
+if [ -f "$TOKEN_FILE" ]; then
+  echo "[INFO] Lese Admin-Token aus $TOKEN_FILE..."
+  # Extrahiere Token aus der Zeile "Token: apiv3_..."
+  ADMIN_TOKEN=$(grep "^Token:" "$TOKEN_FILE" | awk '{print $2}')
+
+  if [ -z "$ADMIN_TOKEN" ]; then
+    echo "[WARN] Konnte Token nicht aus $TOKEN_FILE extrahieren. Verwende Platzhalter."
+    ADMIN_TOKEN="ADMIN_TOKEN"
+  else
+    echo "[INFO] Admin-Token erfolgreich gelesen."
+  fi
+else
+  echo "[WARN] Token-Datei $TOKEN_FILE nicht gefunden. Verwende Platzhalter."
+  ADMIN_TOKEN="ADMIN_TOKEN"
+fi
+
+# Erstelle Konfigurationsdatei mit Token
+cat > /docker/influxdb3-explorer/config/config.json << EOF
+{
+  "DEFAULT_INFLUX_SERVER": "http://172.17.0.1:8181",
+  "DEFAULT_API_TOKEN": "${ADMIN_TOKEN}",
+  "DEFAULT_SERVER_NAME": "Local InfluxDB 3"
+}
+EOF
+
+echo "[INFO] Konfigurationsdatei erstellt."
+
 echo "[INFO] Starte InfluxDB v3 Explorer Container..."
 docker run --detach \
 --name influxdb3-explorer \
