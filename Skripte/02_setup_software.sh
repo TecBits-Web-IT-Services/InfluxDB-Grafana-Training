@@ -13,6 +13,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 bash "$SCRIPT_DIR/02a_setup_prereqs.sh"
 bash "$SCRIPT_DIR/02b_install_influxdb.sh"
+bash "$SCRIPT_DIR/02bb_install_influxdb_V3.sh"
 bash "$SCRIPT_DIR/02c_install_prometheus.sh"
 bash "$SCRIPT_DIR/02d_install_node_exporter.sh"
 bash "$SCRIPT_DIR/02e_install_alertmanager.sh"
