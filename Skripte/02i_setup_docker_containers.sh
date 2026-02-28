@@ -34,7 +34,7 @@ mkdir -p /docker/influxdb3-explorer/db
 mkdir -p /docker/influxdb3-explorer/config
 
 # Extrahiere Admin-Token aus der Token-Datei
-TOKEN_FILE="/home/student/Schreibtisch/admin-token.txt"
+TOKEN_FILE="/workspace/admin-token.txt"
 ADMIN_TOKEN=""
 
 if [ -f "$TOKEN_FILE" ]; then
