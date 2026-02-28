@@ -58,8 +58,9 @@ systemctl enable influxdb3-core || true
 # Erstelle Admin-Token (nur wenn noch nicht vorhanden)
 if [ ! -f /home/student/Schreibtisch/admin-token.txt ]; then
   echo "[INFO] Erstelle Admin-Token..."
-  influxdb3 create token --admin > /home/student/Schreibtisch/admin-token.txt
-  chown student:student /home/student/Schreibtisch/admin-token.txt
+  influxdb3 create token --admin > /workspace/admin-token.txt
+  chown /workspace/admin-token.txt
+  chmod 777 -R /workspace
 fi
 
 echo "[INFO] InfluxDB 3 Core erfolgreich installiert."

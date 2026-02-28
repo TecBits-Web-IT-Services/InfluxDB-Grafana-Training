@@ -54,7 +54,7 @@ influxdb3 --version
 > **Wichtiger Hinweis:** InfluxDB v3 Core hat kein standard Web-Interface mehr. Die Verwaltung erfolgt für den Anfang über die CLI oder API.
 
 >Sichern Sie den im nächsten Schritt erstellten Admin-Token in eine Textdatei. Sie können Ihn im Anschluss nicht erneut abrufen.
->Sollten wir das Setup durchgeführt haben finden Sie den Token unter: /home/student/Schreibtisch/admin-token.txt
+>Sollten wir das Setup durchgeführt haben finden Sie den Token unter: /workspace/admin-token.txt
 ```bash
 # Erstellugn des Admin-Tokens
 sudo su
@@ -150,7 +150,6 @@ mkdir -p /docker/influxdb3-explorer/config
 docker run --detach \
 --name influxdb3-explorer \
 --pull always \
---network=host \
 --publish 8888:80 \
 --volume /docker/influxdb3-explorer/db:/db:rw \
 --volume /docker/influxdb3-explorer/config:/app-root/config:ro \

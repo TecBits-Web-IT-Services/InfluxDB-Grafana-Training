@@ -37,7 +37,6 @@ echo "[INFO] Starte InfluxDB v3 Explorer Container..."
 docker run --detach \
 --name influxdb3-explorer \
 --pull always \
---network=host \
 --publish 8888:80 \
 --volume /docker/influxdb3-explorer/db:/db:rw \
 --volume /docker/influxdb3-explorer/config:/app-root/config:ro \

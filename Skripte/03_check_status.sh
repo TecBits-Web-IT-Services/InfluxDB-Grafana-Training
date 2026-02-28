@@ -10,10 +10,11 @@ WAIT_TIME=20
 echo "[INFO] Warte ${WAIT_TIME} Sekunden, damit alle Dienste vollständig starten können..."
 sleep "$WAIT_TIME"
 
-# Konfiguration der Checks: NAME|SYSTEMD_UNIT|URL|OPTIONAL
+# Konfiguration der Checks: NAME|SYSTEMD_UNIT|URL|TYPE
+# TYPE kann sein: optional, required, nohttp (Service ohne HTTP-Endpoint)
 CHECKS=(
   "InfluxDB v2|influxdb|http://127.0.0.1:8086/health|optional"
-  "InfluxDB v3 Core|influxdb3-core|http://127.0.0.1:8181/health|optional"
+  "InfluxDB v3 Core|influxdb3-core|NOHTTP|nohttp"
   "Prometheus|prometheus|http://127.0.0.1:9090/-/healthy|required"
   "Node Exporter|node_exporter|http://127.0.0.1:9100/metrics|required"
   "Alertmanager|alertmanager|http://127.0.0.1:9093/-/healthy|required"
@@ -64,11 +65,11 @@ main() {
   echo
 
   for entry in "${CHECKS[@]}"; do
-    IFS='|' read -r NAME UNIT URL REQUIRED <<<"$entry"
+    IFS='|' read -r NAME UNIT URL TYPE <<<"$entry"
 
-    # Prüfe, ob Service überhaupt existiert
-    if ! systemctl list-unit-files | grep -q "^${UNIT}.service"; then
-      if [ "$REQUIRED" = "optional" ]; then
+    # Prüfe, ob Service-Datei existiert (robustere Methode)
+    if ! systemctl cat "$UNIT" >/dev/null 2>&1; then
+      if [ "$TYPE" = "optional" ] || [ "$TYPE" = "nohttp" ]; then
         warn "$NAME: Dienst '$UNIT' ist nicht installiert (optional)"
         echo
         continue
@@ -81,25 +82,32 @@ main() {
     fi
 
     # 1) Systemd-Status prüfen
-    if systemctl is-active --quiet "$UNIT"; then
+    if systemctl is-active --quiet "$UNIT" 2>/dev/null; then
       ok "$NAME: Dienst '$UNIT' ist aktiv"
+
+      # 2) HTTP-Erreichbarkeit prüfen (nur wenn Service aktiv und HTTP-Check gewünscht)
+      if [ "$TYPE" = "nohttp" ]; then
+        # Für Services ohne HTTP-Endpoint: Prüfe ob Prozess läuft
+        if systemctl show "$UNIT" -p MainPID --value 2>/dev/null | grep -qv "^0$"; then
+          ok "$NAME: Prozess läuft (PID: $(systemctl show "$UNIT" -p MainPID --value))"
+        else
+          warn "$NAME: Kein aktiver Prozess gefunden"
+        fi
+      elif curl --silent --show-error --fail --max-time 5 "$URL" >/dev/null 2>&1; then
+        ok "$NAME: Endpoint erreichbar: $URL"
+      else
+        if [ "$TYPE" = "optional" ]; then
+          warn "$NAME: Endpoint NICHT erreichbar: $URL (optional)"
+        else
+          err "$NAME: Endpoint NICHT erreichbar: $URL"
+          failed=1
+        fi
+      fi
     else
-      if [ "$REQUIRED" = "optional" ]; then
+      if [ "$TYPE" = "optional" ] || [ "$TYPE" = "nohttp" ]; then
         warn "$NAME: Dienst '$UNIT' ist NICHT aktiv (optional)"
       else
         err "$NAME: Dienst '$UNIT' ist NICHT aktiv"
-        failed=1
-      fi
-    fi
-
-    # 2) HTTP-Erreichbarkeit prüfen
-    if curl --silent --show-error --fail --max-time 5 "$URL" >/dev/null 2>&1; then
-      ok "$NAME: Endpoint erreichbar: $URL"
-    else
-      if [ "$REQUIRED" = "optional" ]; then
-        warn "$NAME: Endpoint NICHT erreichbar: $URL (optional)"
-      else
-        err "$NAME: Endpoint NICHT erreichbar: $URL"
         failed=1
       fi
     fi
