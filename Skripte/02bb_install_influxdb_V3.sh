@@ -25,7 +25,6 @@ if dpkg-query -W -f='${Status}' influxdb3-core 2>/dev/null | grep -q "install ok
     echo "[INFO] Erstelle Admin-Token..."
     mkdir -p /workspace/
     influxdb3 create token --admin > /workspace/admin-token.txt
-    chown /workspace/admin-token.txt
     chmod 777 -R /workspace
   fi
   exit 0
@@ -62,7 +61,6 @@ if [ ! -f /workspace/admin-token.txt ]; then
   echo "[INFO] Erstelle Admin-Token..."
   mkdir -p /workspace/
   influxdb3 create token --admin > /workspace/admin-token.txt
-  chown /workspace/admin-token.txt
   chmod 777 -R /workspace
 fi
 
