@@ -18,6 +18,7 @@ bash "$SCRIPT_DIR/02d_install_node_exporter.sh"
 bash "$SCRIPT_DIR/02e_install_alertmanager.sh"
 bash "$SCRIPT_DIR/02f_install_grafana.sh"
 bash "$SCRIPT_DIR/02g_add_custom_configs.sh"
+bash "$SCRIPT_DIR/02g_install_docker.sh"
 
 echo "Alle Komponenten wurden installiert."
 
