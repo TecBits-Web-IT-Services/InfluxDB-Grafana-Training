@@ -9,7 +9,7 @@ fi
 echo "[INFO] Installiere InfluxDB 2..."
 
 # Prüfe, ob InfluxDB 2 bereits installiert ist
-if dpkg -l | grep -q "^ii  influxdb2 "; then
+if dpkg-query -W -f='${Status}' influxdb2 2>/dev/null | grep -q "install ok installed"; then
   echo "[INFO] InfluxDB 2 ist bereits installiert."
   if systemctl is-active --quiet influxdb; then
     echo "[INFO] InfluxDB-Dienst läuft bereits."

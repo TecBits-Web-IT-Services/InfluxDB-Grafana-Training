@@ -9,7 +9,7 @@ fi
 echo "[INFO] Installiere Grafana OSS..."
 
 # Prüfe, ob Grafana bereits installiert ist
-if dpkg -l | grep -q "^ii  grafana "; then
+if dpkg-query -W -f='${Status}' grafana 2>/dev/null | grep -q "install ok installed"; then
   echo "[INFO] Grafana ist bereits installiert."
   if systemctl is-active --quiet grafana-server; then
     echo "[INFO] Grafana-Dienst läuft bereits."

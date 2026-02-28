@@ -9,7 +9,7 @@ fi
 echo "[INFO] Installiere InfluxDB 3 Core..."
 
 # Prüfe, ob InfluxDB 3 Core bereits installiert ist
-if dpkg -l | grep -q "^ii  influxdb3-core "; then
+if dpkg-query -W -f='${Status}' influxdb3-core 2>/dev/null | grep -q "install ok installed"; then
   echo "[INFO] InfluxDB 3 Core ist bereits installiert."
   if systemctl is-active --quiet influxdb3-core; then
     echo "[INFO] InfluxDB3-Dienst läuft bereits."
