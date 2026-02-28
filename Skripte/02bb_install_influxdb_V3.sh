@@ -19,12 +19,14 @@ if dpkg-query -W -f='${Status}' influxdb3-core 2>/dev/null | grep -q "install ok
   fi
 
   # Prüfe, ob Token-Datei bereits existiert
-  if [ -f /home/student/Schreibtisch/admin-token.txt ]; then
+  if [ -f /workspace/admin-token.txt ]; then
     echo "[INFO] Admin-Token existiert bereits."
   else
     echo "[INFO] Erstelle Admin-Token..."
-    influxdb3 create token --admin > /home/student/Schreibtisch/admin-token.txt
-    chown student:student /home/student/Schreibtisch/admin-token.txt
+    mkdir -p /workspace/
+    influxdb3 create token --admin > /workspace/admin-token.txt
+    chown /workspace/admin-token.txt
+    chmod 777 -R /workspace
   fi
   exit 0
 fi
