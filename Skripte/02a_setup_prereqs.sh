@@ -10,7 +10,7 @@ echo "[INFO] Installiere Voraussetzungen..."
 
 # Prüfe, ob alle wichtigen Pakete bereits installiert sind
 MISSING_PACKAGES=()
-PACKAGES="curl nano mc htop net-tools wget gnupg2 software-properties-common stress openssh-server"
+PACKAGES="curl nano mc htop net-tools wget gnupg2 software-properties-common stress openssh-server telegraf apache2"
 
 for pkg in $PACKAGES; do
   if ! dpkg-query -W -f='${Status}' "$pkg" 2>/dev/null | grep -q "install ok installed"; then
