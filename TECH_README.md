@@ -11,13 +11,16 @@ Das Setup-Skript befindet sich unter `Skripte/01_setup_workspace.sh`. Sie könne
 
 ```
 wget -O - https://raw.githubusercontent.com/TecBits-Web-IT-Services/InfluxDB-Grafana-Training/refs/heads/main/Skripte/01_setup_workspace.sh | bash
+
+sudo su
+cd /home/student/Workspace/InfluxDB-Grafana-Training/Skripte
+bash 02_setup_software.sh
 ```
 
 Hinweise:
 - Das Skript benötigt unter Ubuntu: `wget` und `unzip`.
 - Das Skript erstellt auf dem Desktop des aktuellen Benutzers einen Ordner `Workspace` und lädt dort die neueste Release-Version des Trainings-Repos als ZIP herunter und entpackt sie.
 - Wenn Sie ungern per Pipe in die Shell ausführen, nutzen Sie die "Speichern und dann ausführen"-Variante.
-
 
 ---
 
