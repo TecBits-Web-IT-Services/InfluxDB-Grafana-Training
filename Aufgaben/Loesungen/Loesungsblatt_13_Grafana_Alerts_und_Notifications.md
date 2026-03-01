@@ -18,7 +18,7 @@ Dieses Lösungsblatt beschreibt das Erstellen einer Alarmregel in Grafana, das A
   ```flux
   from(bucket: "training")
     |> range(start: -5m)
-    |> filter(fn: (r) => r._measurement == "airSensors" and r._field == "temperature")
+    |> filter(fn: (r) => r._measurement == "air_sensors" and r._field == "temperature")
     |> aggregateWindow(every: 1m, fn: mean, createEmpty: false)
   ```
 - Reduce: Last() oder Mean()

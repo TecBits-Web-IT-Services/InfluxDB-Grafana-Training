@@ -38,7 +38,7 @@ function lineProtocolBatch(pointData, offset) {
     const now = (Date.now() - ((60 * 60 * 1000) - (10 * offset * 1000))) * 1e6;
 
     pointData.forEach((v) => {
-        batch.push(`airSensors,sensor_id=TLM0${v.id} temperature=${v.t},humidity=${v.h},co=${v.c} ${now}`);
+        batch.push(`air_sensors,sensor_id=TLM0${v.id} temperature=${v.t},humidity=${v.h},co=${v.c} ${now}`);
     });
 
     return batch.join("\n");

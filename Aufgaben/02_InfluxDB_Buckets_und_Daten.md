@@ -32,7 +32,7 @@
 > - Eventuell müssen Sie den Zeitraum der Anzeige vergrößern, um die Daten zu sehen (Button links neben dem Button "Script Editor")
 > - Spielen Sie mit verschiedenen Diagramm-Typen, verschiedenen Window-Perioden und Aggregierungs-Methoden
 
-### 7. Verwenden Sie die V1 CLI mit InfluxQL, um sich alle Werte aus der airSensors Messreihe anzeigen zu lassen und verfeinern Sie anschließend die Ausgabe, um nur die Daten für den Sensor mit der ID TLM0102 anzuzeigen. Optimieren Sie dann die Abfrage, um nur Temperatur-Werte anzuzeigen. Wie ist der Durchschnittswert der Temperatur?
+### 7. Verwenden Sie die V1 CLI mit InfluxQL, um sich alle Werte aus der air_sensors Messreihe anzeigen zu lassen und verfeinern Sie anschließend die Ausgabe, um nur die Daten für den Sensor mit der ID TLM0102 anzuzeigen. Optimieren Sie dann die Abfrage, um nur Temperatur-Werte anzuzeigen. Wie ist der Durchschnittswert der Temperatur?
 > Hinweis
 >
 > - Verwenden Sie den Befehl `influx v1 shell` und InfluxQL

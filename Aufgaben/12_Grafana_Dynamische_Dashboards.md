@@ -1,7 +1,7 @@
 # Grafana - Aufgabenfeld 12: Erstellung dynamischer Dashboards mit Variablen (Templating)
 
 ### 1. **Neues Dashboard anlegen**
-   Erstellen Sie ein neues Dashboard in Grafana mit dem Namen "AirSensors" und fügen Sie mindestens ein Diagramm-Panel hinzu.
+   Erstellen Sie ein neues Dashboard in Grafana mit dem Namen "air_sensors" und fügen Sie mindestens ein Diagramm-Panel hinzu.
 
 ### 2. **Variable definieren**
    - Gehen Sie in den Dashboard-Einstellungen auf den Reiter „Variables" (Variablen).
@@ -21,7 +21,7 @@
     from(bucket: "testdata-web")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
     |> filter(fn: (r) => if "${sensor_id}" == "All" then r["sensor_id"] != "" else  r["sensor_id"] == "${sensor_id}")
-    |> filter(fn: (r) => r["_measurement"] == "airSensors")
+    |> filter(fn: (r) => r["_measurement"] == "air_sensors")
     |> filter(fn: (r) => r["_field"] == "temperature")
    ```
 
@@ -40,7 +40,7 @@
    ```flux
   from(bucket: "testdata-web")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-  |> filter(fn: (r) => r._measurement == "airSensors" and r._field == "temperature")
+  |> filter(fn: (r) => r._measurement == "air_sensors" and r._field == "temperature")
   |> filter(fn: (r) => if "${sensor_id}" == "All" then r["sensor_id"] != "" else  r["sensor_id"] == "${sensor_id}")
   |> map(fn: (r) => ({
     _time: r._time,

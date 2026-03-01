@@ -19,7 +19,7 @@ Dieses Lösungsblatt beschreibt das Anlegen der InfluxDB-Datenquelle in Grafana 
   ```flux
   from(bucket: "training")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "airSensors" and r._field == "temperature")
+    |> filter(fn: (r) => r._measurement == "air_sensors" and r._field == "temperature")
   ```
 - Visualisation: Time series, Einheit °C (optional)
 

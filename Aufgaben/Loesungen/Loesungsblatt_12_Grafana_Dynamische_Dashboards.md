@@ -3,7 +3,7 @@
 Dieses Lösungsblatt zeigt Musterlösungen für Variablen (Templating) und die Verwendung in Flux-Queries, inkl. Annotation-Beispiel.
 
 ## 1. Ziel
-- Dashboard „AirSensors“ mit Variable `sensor_id`
+- Dashboard „air_sensors“ mit Variable `sensor_id`
 - Panels filtern dynamisch anhand der Variable
 - Annotation bei Temperatur > 75°C
 
@@ -25,7 +25,7 @@ Dieses Lösungsblatt zeigt Musterlösungen für Variablen (Templating) und die V
   from(bucket: "testdata-web")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
     |> filter(fn: (r) => if "${sensor_id}" == "All" then r["sensor_id"] != "" else  r["sensor_id"] == "${sensor_id}")
-    |> filter(fn: (r) => r["_measurement"] == "airSensors")
+    |> filter(fn: (r) => r["_measurement"] == "air_sensors")
     |> filter(fn: (r) => r["_field"] == "temperature")
   ```
 - Erwartung: Bei Wechsel von `sensor_id` passt sich die Zeitreihe an.
@@ -41,7 +41,7 @@ Dieses Lösungsblatt zeigt Musterlösungen für Variablen (Templating) und die V
   ```flux
   from(bucket: "testdata-web")
     |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
-    |> filter(fn: (r) => r._measurement == "airSensors" and r._field == "temperature")
+    |> filter(fn: (r) => r._measurement == "air_sensors" and r._field == "temperature")
     |> filter(fn: (r) => if "${sensor_id}" == "All" then r["sensor_id"] != "" else  r["sensor_id"] == "${sensor_id}")
     |> map(fn: (r) => ({
       _time: r._time,

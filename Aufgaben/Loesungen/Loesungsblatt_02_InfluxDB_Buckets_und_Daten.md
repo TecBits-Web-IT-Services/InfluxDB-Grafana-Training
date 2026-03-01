@@ -12,7 +12,7 @@ Dieses Lösungsblatt liefert Ihnen Musterlösungen für das Anlegen von Buckets,
 
 ## 3. Daten schreiben
 - Line Protocol (CLI):  
-  `influx write --bucket training "airSensors,sensor_id=TLM010 temperature=21.5,humidity=47.2,co=378i"`
+  `influx write --bucket training "air_sensors,sensor_id=TLM010 temperature=21.5,humidity=47.2,co=378i"`
 - CSV (Beispiel):  
   `influx write --bucket training --format csv --file ./daten.csv`
 
@@ -21,7 +21,7 @@ Dieses Lösungsblatt liefert Ihnen Musterlösungen für das Anlegen von Buckets,
   ```flux
   from(bucket: "training")
     |> range(start: -1h)
-    |> filter(fn: (r) => r._measurement == "airSensors")
+    |> filter(fn: (r) => r._measurement == "air_sensors")
     |> filter(fn: (r) => r.sensor_id == "TLM010")
     |> last()
   ```
@@ -29,13 +29,13 @@ Dieses Lösungsblatt liefert Ihnen Musterlösungen für das Anlegen von Buckets,
   ```flux
   from(bucket: "training")
     |> range(start: -24h)
-    |> filter(fn: (r) => r._measurement == "airSensors" and r._field == "temperature")
+    |> filter(fn: (r) => r._measurement == "air_sensors" and r._field == "temperature")
   ```
 - Aggregation (Durchschnitt pro 5m):
   ```flux
   from(bucket: "training")
     |> range(start: -6h)
-    |> filter(fn: (r) => r._measurement == "airSensors" and r._field == "humidity")
+    |> filter(fn: (r) => r._measurement == "air_sensors" and r._field == "humidity")
     |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)
   ```
 
