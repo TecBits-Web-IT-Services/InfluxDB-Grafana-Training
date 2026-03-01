@@ -40,7 +40,7 @@ if [ ! -f /etc/apt/sources.list.d/influxdata.list ]; then
 fi
 
 echo "[INFO] Installiere InfluxDB 2..."
-apt-get update && apt-get install -y influxdb2
+apt-get update && apt-get install -y influxdb2 telegraf
 
 echo "[INFO] Starte InfluxDB-Dienst..."
 systemctl start influxdb
