@@ -13,7 +13,7 @@ Das Setup-Skript befindet sich unter `Skripte/01_setup_workspace.sh`. Sie könne
 wget -O - https://raw.githubusercontent.com/TecBits-Web-IT-Services/InfluxDB-Grafana-Training/refs/heads/main/Skripte/01_setup_workspace.sh | bash
 
 sudo su
-cd home/student/Schreibtisch/Workspace/InfluxDB-Grafana-Training/Skripte
+cd /home/student/Schreibtisch/Workspace/InfluxDB-Grafana-Training/Skripte
 bash 02_setup_software.sh
 ```
 
