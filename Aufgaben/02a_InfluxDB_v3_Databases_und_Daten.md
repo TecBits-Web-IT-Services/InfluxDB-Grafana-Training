@@ -12,7 +12,7 @@
 
 ```bash
 # Database erstellen
-influxdb3 create database "airSensorData"
+influxdb3 create databases "airSensorData"
 
 # Databases auflisten
 influxdb3 show database
