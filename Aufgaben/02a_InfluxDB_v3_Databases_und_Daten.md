@@ -43,7 +43,7 @@ air_sensors,sensor_id=TLM0203 temperature=74.79374303918978,humidity=35.93156127
 EOF
 
 # Schreiben einer Line Protokoll-Datei
-influxdb3 write --database "airSensorData" --file /home/student/Schreibstisch/Workspace/InfluxDB-Grafana-Training/Testdaten/air-sensor-data.lp
+influxdb3 write --database "airSensorData" --file influxdb3 write --database "airSensorData" --file /home/student/Schreibstisch/Workspace/InfluxDB-Grafana-Training/Testdaten/air-sensor-data.lp
 ```
 
 ### 3. Verwenden Sie SQL-Abfragen, um die importierten Daten anzuzeigen
