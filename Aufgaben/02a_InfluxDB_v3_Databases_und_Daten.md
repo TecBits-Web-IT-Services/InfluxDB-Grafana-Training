@@ -138,7 +138,7 @@ influxdb3 query \
 influxdb3 create database --retention-period 30d "airSensorData-retention"
 
 # Neue Database erstellen ohne befristung der Datenaufbewahrung
-influxdb3 create database --retention-period none "airSensorData-retention-none"
+influxdb3 create database --retention-period 0 "airSensorData-retention-none"
 ```
 
 ### 7. Nutzen Sie die HTTP API, um Daten zu schreiben
