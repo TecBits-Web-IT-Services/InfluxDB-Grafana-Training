@@ -2,7 +2,7 @@
 
 ### Vorbereitung
 
-Erstellen Sie eine neue Verbindung wie in Aufgabe 11b aber dieses mal mit der Databank "computer-monitor" um Zugriff auf die Leistungsmetriken zu bekommen.
+Erstellen Sie eine neue Verbindung wie in Aufgabe 11b aber dieses mal mit der Databank "computer-monitoring" um Zugriff auf die Leistungsmetriken zu bekommen.
 
 
 ### 1. Starten Sie den Telegraf-Prozess aus Aufgabenfeld 3, um die aktuellen Metriken des Rechners in der InfluxDB zu erfassen
