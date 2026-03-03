@@ -50,7 +50,7 @@ systemctl start grafana-server
     - URL: http://localhost:8181
     - Organisation: Test-Organisation
     - Token: INFLUXDB_TOKEN_AUS_DER_DATEI
-    - Default Bucket: computer-monitoring
+    - Default Bucket/Database: computer-monitoring
 - Klicken Sie "Save & Test"
     - Es sollte eine Meldung mit `datasource is working` erscheinen
 

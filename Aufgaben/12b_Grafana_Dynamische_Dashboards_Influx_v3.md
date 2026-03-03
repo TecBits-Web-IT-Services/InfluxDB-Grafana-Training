@@ -25,7 +25,7 @@ Erstellen Sie eine neue Verbindung wie in Aufgabe 11b aber dieses mal mit der Da
    Ändern Sie die Abfrage des Panels, um die Variable zu nutzen. Beispiel:
    ```sql
 SELECT
-    date_bin(INTERVAL '1 minute', time) AS time,
+  date_bin(INTERVAL '1 minute', time) AS time,
   sensor_id,
   AVG(temperature) AS temperature
 FROM air_sensors
