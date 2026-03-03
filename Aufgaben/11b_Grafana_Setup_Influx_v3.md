@@ -39,7 +39,7 @@ systemctl start grafana-server
     - Passwort: **admin**
 - Bei der ersten Anmeldung werden Sie aufgefordert, das Passwort zu ändern. Für die Übung verwenden Sie bitte **`Test4711-`**
 
-## InfluxDB mit FLUX 
+## InfluxDB v3 mit SQL 
 
 ### 2. Einrichtung von InfluxDB als Datenquelle für Grafana
 - Klicken Sie im Grafana-Dashboard oben links auf das Grafana-Symbol und im erscheinenden Menü auf Connections
